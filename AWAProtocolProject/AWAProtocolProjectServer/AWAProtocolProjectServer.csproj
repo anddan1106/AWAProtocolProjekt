@@ -52,6 +52,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AWAProtocolUtils\AWAProtocolUtils.csproj">
+      <Project>{B849CC45-57BD-40D8-B711-56EBD3F778E5}</Project>
+      <Name>AWAProtocolUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AWAProtocol\AWAProtocol.csproj">
+      <Project>{74098597-AC2B-44C7-A2EB-5828FF2ADDBE}</Project>
+      <Name>AWAProtocol</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

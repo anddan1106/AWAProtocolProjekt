@@ -1,6 +1,6 @@
 ﻿namespace AWAProtocol
 {
-    public class AWAData
+    public abstract class AWAData
     {
     }
 }

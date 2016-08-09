@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AWAProtocol;
+using AWAProtocolUtils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,20 +39,20 @@ namespace AWAProtocolProjectServer
             {
                 listener.Start();
 
-                while (players.Count < 2)
+                while (players.Count() < 2)
                 {
                     TcpClient c = listener.AcceptTcpClient();
 
                     BinaryWriter w = new BinaryWriter(c.GetStream());
-                    string message = "Ange ditt namn."; //TODO skicka ett meddelande utifrån protocollet
+                    AWAMessage message = ProtocolUtils.CreateMessage("Ange ditt namn.");
                     string clientName = "";
 
                     do
                     {
-                        w.Write(message);
+                        w.Write(ProtocolUtils.Serialize(message));
                         w.Flush();
                         clientName = new BinaryReader(c.GetStream()).ReadString();
-                        message = "Namnet är upptaget." + Environment.NewLine + "Ange ett nytt namn."; //TODO skicka ett meddelande utifrån protocollet
+                        message.Data.Message = "Namnet är upptaget." + Environment.NewLine + "Ange ett nytt namn.";
                     } while (players.Exists(p => p.Name == clientName));
 
                     AddNewPlayer(c, clientName);

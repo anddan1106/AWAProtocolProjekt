@@ -40,10 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AWAError.cs" />
     <Compile Include="AWABase.cs" />
     <Compile Include="AWACommand.cs" />
     <Compile Include="AWAData.cs" />
-    <Compile Include="AWAVersion.cs" />
+    <Compile Include="AWAMessage.cs" />
+    <Compile Include="AWAMessageData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
