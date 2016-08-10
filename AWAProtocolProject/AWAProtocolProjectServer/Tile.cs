@@ -8,14 +8,15 @@ namespace AWAProtocolProjectServer
 {
     class Tile
     {
+        private char icon;
         public int XPos { get; set; }
         public int YPos { get; set; }
         public List<Player> Players { get; set; }
         public char Icon
         {
-            get { return Players.Count() == 0 ? Icon : Players.FirstOrDefault().Icon; }
+            get { return Players.Count() == 0 ? icon : Players.FirstOrDefault().Icon; }
 
-            set { Icon = value; }
+            set { icon = value; }
         }
 
         public Tile(int x, int y)

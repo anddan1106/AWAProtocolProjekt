@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AWAProtocol
 {
-    public abstract class AWABase
+    public class AWABase
     {
         public string Version { get; set; }
         public AWACommand Command { get; set; }

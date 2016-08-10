@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AWAProtocol", "AWAProtocol\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AWAProtocolUtils", "AWAProtocolUtils\AWAProtocolUtils.csproj", "{B849CC45-57BD-40D8-B711-56EBD3F778E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AWAProtocolProjectClient", "AWAProtocolProjectClient\AWAProtocolProjectClient.csproj", "{A0E0573A-501C-4C91-8D66-665BE63D0411}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B849CC45-57BD-40D8-B711-56EBD3F778E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B849CC45-57BD-40D8-B711-56EBD3F778E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B849CC45-57BD-40D8-B711-56EBD3F778E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0E0573A-501C-4C91-8D66-665BE63D0411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0E0573A-501C-4C91-8D66-665BE63D0411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0E0573A-501C-4C91-8D66-665BE63D0411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0E0573A-501C-4C91-8D66-665BE63D0411}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

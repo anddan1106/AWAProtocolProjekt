@@ -8,12 +8,12 @@ namespace AWAProtocol
 {
     public class AWAError : AWABase
     {
-        public new AWAMessageData Data { get; set; }
-        public AWAError(string version, string message)
+        public new AWAErrorData Data { get; set; }
+        public AWAError(string version, int code)
         {
             Version = version;
             Command = new AWACommand("error");
-            Data = new AWAMessageData(message);
+            Data = new AWAErrorData(code);
         }
     }
 }
