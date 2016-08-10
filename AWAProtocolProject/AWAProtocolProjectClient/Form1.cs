@@ -29,22 +29,41 @@ namespace AWAProtocolProjectClient
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ConnectButton_Click(object sender, EventArgs e)
         {
             serverIP = GetLocalIP(); //TODO read from IP_inputbox
             //server = new TcpClient("192.168.220.116", 8080);
             messageBox.Items.Add("Connecting to server...");
-            server = new TcpClient(serverIP, 5000);
+            try
+            {
+                server = new TcpClient(serverIP, 5000);
+                NetworkStream n = server.GetStream();
+                //TODO loopa tills vi får ett usernameRequest
+                AWABase obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
+                if (obj != null && obj.Command.Type == "usernameRequest")
+                {
+                    UsernameLabel.Text = ((AWAMessage)obj).Data.Message;
+                    ConnectPanel.Visible = false;
+                    UsernamePanel.Visible = true;
+                }
 
-            Thread listenerThread = new Thread(Listen);
-            listenerThread.Start();
 
-            Thread senderThread = new Thread(Send);
-            senderThread.Start();
+            }
+            catch (Exception)
+            {
+                //TODO add error message and possibliy try again
+                throw;
+            }
+
+            //Thread listenerThread = new Thread(Listen);
+            //listenerThread.Start();
+
+            //Thread senderThread = new Thread(Send);
+            //senderThread.Start();
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void messageButton_Click(object sender, EventArgs e)
         {
             messageBox.Items.Add(messageText.Text);
             messageText.Text = "";
@@ -62,10 +81,8 @@ namespace AWAProtocolProjectClient
                     AWABase obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
                     if (obj == null)
                     {
-                        BinaryWriter w = new BinaryWriter(n);
                         var errorObj = ProtocolUtils.CreateError(1);
-                        w.Write(ProtocolUtils.Serialize(errorObj));
-                        w.Flush();
+                        sendObject(n, errorObj);
                     }
                     else
                     {
@@ -129,6 +146,27 @@ namespace AWAProtocolProjectClient
             return "";
         }
 
+        private void UsernameButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                NetworkStream n = server.GetStream();
 
+                string name = UsernameTextBox.Text;
+                sendObject(n, new AWAMessage("1.0", name));
+
+                AWABase obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
+
+            }
+            catch (Exception ex)
+            { }
+        }
+
+        private void sendObject(NetworkStream n, AWABase obj)
+        {
+            BinaryWriter w = new BinaryWriter(n);
+            w.Write(ProtocolUtils.Serialize(obj));
+            w.Flush();
+        }
     }
 }

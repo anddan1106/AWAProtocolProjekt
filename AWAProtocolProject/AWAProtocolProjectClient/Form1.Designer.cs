@@ -28,82 +28,73 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.messageText = new System.Windows.Forms.TextBox();
-            this.messageButton = new System.Windows.Forms.Button();
+            this.ConnectButton = new System.Windows.Forms.Button();
+            this.ConnectTextBox = new System.Windows.Forms.TextBox();
+            this.ConnectLabel = new System.Windows.Forms.Label();
+            this.ConnectPanel = new System.Windows.Forms.Panel();
+            this.messagePanel = new System.Windows.Forms.Panel();
             this.messageBox = new System.Windows.Forms.ListBox();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.messageButton = new System.Windows.Forms.Button();
+            this.messageText = new System.Windows.Forms.TextBox();
+            this.UsernamePanel = new System.Windows.Forms.Panel();
+            this.UsernameLabel = new System.Windows.Forms.Label();
+            this.UsernameButton = new System.Windows.Forms.Button();
+            this.UsernameTextBox = new System.Windows.Forms.TextBox();
+            this.ConnectPanel.SuspendLayout();
+            this.messagePanel.SuspendLayout();
+            this.UsernamePanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // ConnectButton
             // 
-            this.button1.Location = new System.Drawing.Point(23, 118);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(218, 84);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Connect to server";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ConnectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConnectButton.Location = new System.Drawing.Point(23, 118);
+            this.ConnectButton.Name = "ConnectButton";
+            this.ConnectButton.Size = new System.Drawing.Size(218, 84);
+            this.ConnectButton.TabIndex = 0;
+            this.ConnectButton.Text = "Connect to server";
+            this.ConnectButton.UseVisualStyleBackColor = true;
+            this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
             // 
-            // textBox1
+            // ConnectTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(23, 58);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(218, 20);
-            this.textBox1.TabIndex = 1;
+            this.ConnectTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConnectTextBox.Location = new System.Drawing.Point(23, 58);
+            this.ConnectTextBox.Name = "ConnectTextBox";
+            this.ConnectTextBox.Size = new System.Drawing.Size(218, 29);
+            this.ConnectTextBox.TabIndex = 1;
             // 
-            // label1
+            // ConnectLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Enter server IP-Address";
+            this.ConnectLabel.AutoSize = true;
+            this.ConnectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConnectLabel.Location = new System.Drawing.Point(23, 24);
+            this.ConnectLabel.Name = "ConnectLabel";
+            this.ConnectLabel.Size = new System.Drawing.Size(209, 24);
+            this.ConnectLabel.TabIndex = 2;
+            this.ConnectLabel.Text = "Enter server IP-Address";
             // 
-            // panel1
+            // ConnectPanel
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Location = new System.Drawing.Point(175, 77);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 223);
-            this.panel1.TabIndex = 3;
+            this.ConnectPanel.Controls.Add(this.ConnectLabel);
+            this.ConnectPanel.Controls.Add(this.ConnectButton);
+            this.ConnectPanel.Controls.Add(this.ConnectTextBox);
+            this.ConnectPanel.Location = new System.Drawing.Point(159, 77);
+            this.ConnectPanel.Name = "ConnectPanel";
+            this.ConnectPanel.Size = new System.Drawing.Size(300, 223);
+            this.ConnectPanel.TabIndex = 3;
             // 
-            // panel2
+            // messagePanel
             // 
-            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.Controls.Add(this.messageBox);
-            this.panel2.Controls.Add(this.messageButton);
-            this.panel2.Controls.Add(this.messageText);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 461);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(936, 185);
-            this.panel2.TabIndex = 4;
-            // 
-            // messageText
-            // 
-            this.messageText.Location = new System.Drawing.Point(8, 157);
-            this.messageText.Name = "messageText";
-            this.messageText.Size = new System.Drawing.Size(608, 20);
-            this.messageText.TabIndex = 0;
-            // 
-            // messageButton
-            // 
-            this.messageButton.Location = new System.Drawing.Point(623, 154);
-            this.messageButton.Name = "messageButton";
-            this.messageButton.Size = new System.Drawing.Size(75, 23);
-            this.messageButton.TabIndex = 1;
-            this.messageButton.Text = "Send";
-            this.messageButton.UseVisualStyleBackColor = true;
-            this.messageButton.Click += new System.EventHandler(this.button2_Click);
+            this.messagePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.messagePanel.Controls.Add(this.messageBox);
+            this.messagePanel.Controls.Add(this.messageButton);
+            this.messagePanel.Controls.Add(this.messageText);
+            this.messagePanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.messagePanel.Location = new System.Drawing.Point(0, 461);
+            this.messagePanel.Name = "messagePanel";
+            this.messagePanel.Size = new System.Drawing.Size(936, 185);
+            this.messagePanel.TabIndex = 4;
             // 
             // messageBox
             // 
@@ -114,33 +105,96 @@
             this.messageBox.TabIndex = 2;
             this.messageBox.UseTabStops = false;
             // 
+            // messageButton
+            // 
+            this.messageButton.Location = new System.Drawing.Point(623, 154);
+            this.messageButton.Name = "messageButton";
+            this.messageButton.Size = new System.Drawing.Size(75, 23);
+            this.messageButton.TabIndex = 1;
+            this.messageButton.Text = "Send";
+            this.messageButton.UseVisualStyleBackColor = true;
+            this.messageButton.Click += new System.EventHandler(this.messageButton_Click);
+            // 
+            // messageText
+            // 
+            this.messageText.Location = new System.Drawing.Point(8, 157);
+            this.messageText.Name = "messageText";
+            this.messageText.Size = new System.Drawing.Size(608, 20);
+            this.messageText.TabIndex = 0;
+            // 
+            // UsernamePanel
+            // 
+            this.UsernamePanel.Controls.Add(this.UsernameLabel);
+            this.UsernamePanel.Controls.Add(this.UsernameButton);
+            this.UsernamePanel.Controls.Add(this.UsernameTextBox);
+            this.UsernamePanel.Location = new System.Drawing.Point(532, 77);
+            this.UsernamePanel.Name = "UsernamePanel";
+            this.UsernamePanel.Size = new System.Drawing.Size(300, 223);
+            this.UsernamePanel.TabIndex = 4;
+            // 
+            // UsernameLabel
+            // 
+            this.UsernameLabel.AutoSize = true;
+            this.UsernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UsernameLabel.Location = new System.Drawing.Point(23, 24);
+            this.UsernameLabel.Name = "UsernameLabel";
+            this.UsernameLabel.Size = new System.Drawing.Size(171, 24);
+            this.UsernameLabel.TabIndex = 2;
+            this.UsernameLabel.Text = "Choose your name";
+            // 
+            // UsernameButton
+            // 
+            this.UsernameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UsernameButton.Location = new System.Drawing.Point(23, 118);
+            this.UsernameButton.Name = "UsernameButton";
+            this.UsernameButton.Size = new System.Drawing.Size(218, 84);
+            this.UsernameButton.TabIndex = 0;
+            this.UsernameButton.Text = "Submit";
+            this.UsernameButton.UseVisualStyleBackColor = true;
+            this.UsernameButton.Click += new System.EventHandler(this.UsernameButton_Click);
+            // 
+            // UsernameTextBox
+            // 
+            this.UsernameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UsernameTextBox.Location = new System.Drawing.Point(23, 58);
+            this.UsernameTextBox.Name = "UsernameTextBox";
+            this.UsernameTextBox.Size = new System.Drawing.Size(218, 29);
+            this.UsernameTextBox.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(936, 646);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.UsernamePanel);
+            this.Controls.Add(this.messagePanel);
+            this.Controls.Add(this.ConnectPanel);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.ConnectPanel.ResumeLayout(false);
+            this.ConnectPanel.PerformLayout();
+            this.messagePanel.ResumeLayout(false);
+            this.messagePanel.PerformLayout();
+            this.UsernamePanel.ResumeLayout(false);
+            this.UsernamePanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button ConnectButton;
+        private System.Windows.Forms.TextBox ConnectTextBox;
+        private System.Windows.Forms.Label ConnectLabel;
+        private System.Windows.Forms.Panel ConnectPanel;
+        private System.Windows.Forms.Panel messagePanel;
         private System.Windows.Forms.ListBox messageBox;
         private System.Windows.Forms.Button messageButton;
         private System.Windows.Forms.TextBox messageText;
+        private System.Windows.Forms.Panel UsernamePanel;
+        private System.Windows.Forms.Label UsernameLabel;
+        private System.Windows.Forms.Button UsernameButton;
+        private System.Windows.Forms.TextBox UsernameTextBox;
     }
 }
 
