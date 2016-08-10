@@ -51,7 +51,7 @@ namespace AWAProtocolProjectServer
                     {
                         w.Write(ProtocolUtils.Serialize(message));
                         w.Flush();
-                        clientName = new BinaryReader(c.GetStream()).ReadString();
+                        clientName = new BinaryReader(c.GetStream()).ReadString(); // TODO : hantera sträng som ett protocol objekt
                         message.Data.Message = "Namnet är upptaget." + Environment.NewLine + "Ange ett nytt namn.";
                     } while (players.Exists(p => p.Name == clientName));
 
