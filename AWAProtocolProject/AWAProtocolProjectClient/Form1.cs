@@ -39,13 +39,17 @@ namespace AWAProtocolProjectClient
                 server = new TcpClient(serverIP, 5000);
                 NetworkStream n = server.GetStream();
                 //TODO loopa tills vi får ett usernameRequest
-                AWABase obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
-                if (obj != null && obj.Command.Type == "usernameRequest")
+                AWABase obj = null;
+                do
                 {
-                    UsernameLabel.Text = ((AWAMessage)obj).Data.Message;
-                    ConnectPanel.Visible = false;
-                    UsernamePanel.Visible = true;
-                }
+                    obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
+
+                } while (obj == null || obj.Command.Type != AWAProtocol.CommandType.Request || ((AWARequest)obj).Data.RequestFor != RequestType.Username);
+
+                UsernameLabel.Text = ((AWARequest)obj).Data.Message;
+                ConnectPanel.Visible = false;
+                UsernamePanel.Show();
+
 
 
             }
@@ -54,9 +58,6 @@ namespace AWAProtocolProjectClient
                 //TODO add error message and possibliy try again
                 throw;
             }
-
-            //Thread listenerThread = new Thread(Listen);
-            //listenerThread.Start();
 
             //Thread senderThread = new Thread(Send);
             //senderThread.Start();
@@ -88,12 +89,21 @@ namespace AWAProtocolProjectClient
                     {
                         switch (obj.Command.Type)
                         {
-                            case "message":
+                            case AWAProtocol.CommandType.Message:
                                 messageBox.Items.Add(((AWAMessage)obj).Data.Message);
                                 break;
-                            case "error":
+
+                            case AWAProtocol.CommandType.Error:
                                 messageBox.Items.Add("ERROR! -- " + ((AWAError)obj).Data.Message);
                                 break;
+
+                            case AWAProtocol.CommandType.GameInit:
+                                CreateGame(((AWAGameMove)obj).Data.Json, ((AWAGameMove)obj).Data.MoveType);
+                                break;
+                            case AWAProtocol.CommandType.GameMove:
+                                PlayerMove(((AWAGameMove)obj).Data.Json);
+                                break;
+
                             default:
                                 break;
                         }
@@ -105,6 +115,23 @@ namespace AWAProtocolProjectClient
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void CreateGame(string json, GameMoveType moveType)
+        {
+            //TODO om moveType ör field size eller spelares placering
+            throw new NotImplementedException();
+        }
+
+        private void PlayerMove(string json)
+        {
+            //TODO flytta spelare
+            throw new NotImplementedException();
+        }
+
+        private void InitiateGame(string json)
+        {
+
         }
 
         public void Send()
@@ -151,15 +178,42 @@ namespace AWAProtocolProjectClient
             try
             {
                 NetworkStream n = server.GetStream();
-
                 string name = UsernameTextBox.Text;
-                sendObject(n, new AWAMessage("1.0", name));
+                Log.WriteLine($"sending username : {name}");
+                AWABase obj = null;
 
-                AWABase obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
-
+                sendObject(n, new AWAResponse("1", ResponseType.Username, name, "1.0"));
+                obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
+                if (obj != null)
+                {
+                    if (obj.Command.Type == AWAProtocol.CommandType.Request && ((AWARequest)obj).Data.RequestFor == RequestType.Username)
+                        UsernameLabel.Text = ((AWARequest)obj).Data.Message;
+                    else if (obj.Command.Type == AWAProtocol.CommandType.Ok)
+                    {
+                        UsernamePanel.Visible = false;
+                        InitiateGame();
+                    }
+                    else
+                    {
+                        UsernameLabel.Text = "försök igen.";
+                    }
+                }
             }
             catch (Exception ex)
-            { }
+            {
+
+            }
+        }
+
+        private void InitiateGame()
+        {
+            GameFieldPanel.Visible = true;
+            GameFieldLabel.Text = "waiting for other players...";
+
+            //TODO skapa lyssnar-tråd och skickar-tråd
+            Thread listenerThread = new Thread(Listen);
+            listenerThread.Start();
+
         }
 
         private void sendObject(NetworkStream n, AWABase obj)

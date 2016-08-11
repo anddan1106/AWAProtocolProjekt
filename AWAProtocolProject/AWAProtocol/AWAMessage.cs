@@ -12,7 +12,7 @@ namespace AWAProtocol
         public AWAMessage(string version, string message)
         {
             Version = version;
-            Command = new AWACommand("message");
+            Command = new AWACommand(CommandType.Message);
             Data = new AWAMessageData(message);
         }
     }

@@ -12,7 +12,7 @@ namespace AWAProtocol
         public AWAError(string version, int code)
         {
             Version = version;
-            Command = new AWACommand("error");
+            Command = new AWACommand(CommandType.Error);
             Data = new AWAErrorData(code);
         }
     }

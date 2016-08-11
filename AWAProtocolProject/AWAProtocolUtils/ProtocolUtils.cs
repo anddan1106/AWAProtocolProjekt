@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AWAProtocol.AWABase;
 
 namespace AWAProtocolUtils
 {
@@ -24,16 +25,35 @@ namespace AWAProtocolUtils
 
                     switch (obj.Command.Type)
                     {
-                        case "message":
+                        case CommandType.Message:
                             var msg = JsonConvert.DeserializeObject<AWAMessage>(data);
                             if (msg.Data.Message != null) 
                                 return msg;
                             break;
-                        case "error":
+
+                        case CommandType.Error:
                             var err = JsonConvert.DeserializeObject<AWAError>(data);
                             if (err.Data.Message != null && err.Data.Code > 0)
                                 return err;
                             break;
+
+                        case CommandType.Request:
+                            var req = JsonConvert.DeserializeObject<AWARequest>(data);
+                            if (req.Data.Id != null && req.Data.Id.Length > 0)
+                                return req;
+                            break;
+
+                        case CommandType.Response:
+                            var res = JsonConvert.DeserializeObject<AWAResponse>(data);
+                            if (res.Data.Id != null && res.Data.Id.Length > 0)
+                                return res;
+                            break;
+                        case CommandType.Ok:
+                            var ok = JsonConvert.DeserializeObject<AWAOk>(data);
+                            if (ok.Data.Message != null && ok.Data.Message.Length > 0)
+                                return ok;
+                            break;
+
                         default:
                             break;
                     }
@@ -56,6 +76,19 @@ namespace AWAProtocolUtils
         public static AWAError CreateError(int code, string version = "1.0")
         {
             return new AWAError(version, code);
+        }
+
+        public static AWARequest CreateRequest(string id, RequestType requestFor, string message, string version = "1.0")
+        {
+            return new AWARequest(id, requestFor, message, version);
+        }
+        public static AWAOk CreateOk(string message, string version = "1.0")
+        {
+            return new AWAOk(version, message);
+        }
+        public static AWAGameMove CreateMove(string Json, CommandType commandType, GameMoveType moveType, string version = "1.0")
+        {
+            return new AWAGameMove(version, commandType, moveType, Json);
         }
 
         public static string Serialize(AWABase obj)

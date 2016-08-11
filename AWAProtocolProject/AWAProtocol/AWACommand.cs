@@ -1,9 +1,11 @@
-﻿namespace AWAProtocol
+﻿using static AWAProtocol.AWABase;
+
+namespace AWAProtocol
 {
     public class AWACommand
     {
-        public string Type { get; set; }
-        public AWACommand(string type)
+        public CommandType Type { get; set; }
+        public AWACommand(CommandType type)
         {
             Type = type;
         }

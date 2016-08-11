@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AWAProtocolProjectServer
 {
-    class Game
+    public class Game
     {
         List<Player> players = new List<Player>();
         public Tile[][] GameField { get; set; }
@@ -25,7 +25,7 @@ namespace AWAProtocolProjectServer
             IsAlive = true;
             Init();
             WaitForPlayers();
-            
+
         }
 
         private void WaitForPlayers()
@@ -33,7 +33,7 @@ namespace AWAProtocolProjectServer
             //Listen for connecting players
 
             TcpListener listener = new TcpListener(IPAddress.Any, 5000);
-            Console.WriteLine("Server up and running, waiting for Players...");
+            Log.WriteLine("Server up and running, waiting for Players...");
 
             try
             {
@@ -43,36 +43,69 @@ namespace AWAProtocolProjectServer
                 {
                     TcpClient c = listener.AcceptTcpClient();
 
+                    Log.WriteLine("user connecting");
+
                     BinaryWriter w = new BinaryWriter(c.GetStream());
-                    AWAMessage message = ProtocolUtils.CreateMessage("Ange ditt namn.");
+                    AWARequest request = ProtocolUtils.CreateRequest("1", RequestType.Username, "Choose your name."); //TODO fixa en Id-generator
                     string clientName = "";
 
                     do
                     {
-                        w.Write(ProtocolUtils.Serialize(message));
+                        w.Write(ProtocolUtils.Serialize(request));
                         w.Flush();
+                        Log.WriteLine("server sending request");
                         var obj = ProtocolUtils.Deserialize(new BinaryReader(c.GetStream()).ReadString());
 
-                        clientName = ((AWAMessage)obj).Data.Message; // TODO : hantera sträng som ett protocol objekt
-                        message.Data.Message = "Namnet är upptaget." + Environment.NewLine + "Ange ett nytt namn.";
+                        Log.WriteLine("connected user response");
+
+
+                        if (obj != null)
+                        {
+                            if (obj.Command.Type == CommandType.Response
+                                && ((AWAResponse)obj).Data.ResponseType == ResponseType.Username)
+                                clientName = ((AWAResponse)obj).Data.Message;
+
+                            request.Data.Message = "Namnet är upptaget. Ange ett nytt namn.";
+                        }
+                        else
+                        {
+                            Log.WriteLine("incoming message was not valid");
+                        }
+
                     } while (players.Exists(p => p.Name == clientName));
 
+                    //TODO skicka ett namn-ok..
+                    w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateOk("Username ok")));
+                    w.Flush();
+
                     AddNewPlayer(c, clientName);
+                    Log.WriteLine($"{clientName}: ansluten");
 
                 }
+                Log.WriteLine("två spelare anslutna");
 
+                //TODO skicka signal om att stara spelet med spelarnas positioner
+                string Json = $"{{{nameof(Height)} : {Height}, {nameof(Width)} : {Width}}}";
+                foreach (Player player in players)
+                {
+                    BinaryWriter w = new BinaryWriter(player.c.GetStream());
+                    w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateMove(Json,CommandType.GameInit, GameMoveType.InitiateField)));
+                    w.Flush();
+                }
+                // lista med spelare (id, position)
+                // storleken på planen
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.WriteLine(ex.Message);
             }
             finally
             {
                 if (listener != null)
                     listener.Stop();
             }
-            
+
         }
 
         private void AddNewPlayer(TcpClient c, string clientName)
@@ -108,7 +141,7 @@ namespace AWAProtocolProjectServer
                     GameField[i][j] = new Tile(i, j);
                 }
             }
-            Console.WriteLine("Game initiated!");
+            Log.WriteLine("Game initiated!");
         }
     }
 }

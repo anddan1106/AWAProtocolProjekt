@@ -6,12 +6,12 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AWAProtocolProjectServer
+namespace AWADoD
 {
     public class Player
     {
-        public TcpClient c;
-        public Game game;
+        private TcpClient c;
+        private Game game;
 
         public string Name { get; set; }
         public char Icon { get; set; }
