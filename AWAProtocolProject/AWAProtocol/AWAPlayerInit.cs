@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace AWAProtocol
 {
-    public class AWAGameMove : AWABase
+    public class AWAPlayerInit : AWABase
     {
         public new AWAGameMoveData Data { get; set; }
-        public AWAGameMove(string version, GameMoveType moveType, int playerId, int xPos, int yPos)
+        public AWAPlayerInit(string version, GameMoveType moveType, int playerId, int xPos, int yPos)
         {
-            Command = new AWACommand(CommandType.GameMove);
             Version = version;
+            Command = new AWACommand(CommandType.PlayerInit);
             Data = new AWAGameMoveData(moveType, playerId, xPos, yPos);
         }
     }

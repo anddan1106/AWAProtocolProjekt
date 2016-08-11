@@ -32,7 +32,7 @@
             this.ConnectTextBox = new System.Windows.Forms.TextBox();
             this.ConnectLabel = new System.Windows.Forms.Label();
             this.ConnectPanel = new System.Windows.Forms.Panel();
-            this.messagePanel = new System.Windows.Forms.Panel();
+            this.MessagePanel = new System.Windows.Forms.Panel();
             this.messageBox = new System.Windows.Forms.ListBox();
             this.messageButton = new System.Windows.Forms.Button();
             this.messageText = new System.Windows.Forms.TextBox();
@@ -43,7 +43,7 @@
             this.GameFieldPanel = new System.Windows.Forms.Panel();
             this.GameFieldLabel = new System.Windows.Forms.Label();
             this.ConnectPanel.SuspendLayout();
-            this.messagePanel.SuspendLayout();
+            this.MessagePanel.SuspendLayout();
             this.UsernamePanel.SuspendLayout();
             this.GameFieldPanel.SuspendLayout();
             this.SuspendLayout();
@@ -87,17 +87,17 @@
             this.ConnectPanel.Size = new System.Drawing.Size(300, 223);
             this.ConnectPanel.TabIndex = 3;
             // 
-            // messagePanel
+            // MessagePanel
             // 
-            this.messagePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.messagePanel.Controls.Add(this.messageBox);
-            this.messagePanel.Controls.Add(this.messageButton);
-            this.messagePanel.Controls.Add(this.messageText);
-            this.messagePanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.messagePanel.Location = new System.Drawing.Point(0, 461);
-            this.messagePanel.Name = "messagePanel";
-            this.messagePanel.Size = new System.Drawing.Size(1374, 185);
-            this.messagePanel.TabIndex = 4;
+            this.MessagePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.MessagePanel.Controls.Add(this.messageBox);
+            this.MessagePanel.Controls.Add(this.messageButton);
+            this.MessagePanel.Controls.Add(this.messageText);
+            this.MessagePanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.MessagePanel.Location = new System.Drawing.Point(0, 461);
+            this.MessagePanel.Name = "MessagePanel";
+            this.MessagePanel.Size = new System.Drawing.Size(1374, 185);
+            this.MessagePanel.TabIndex = 4;
             // 
             // messageBox
             // 
@@ -192,13 +192,13 @@
             this.Controls.Add(this.GameFieldPanel);
             this.Controls.Add(this.ConnectPanel);
             this.Controls.Add(this.UsernamePanel);
-            this.Controls.Add(this.messagePanel);
+            this.Controls.Add(this.MessagePanel);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ConnectPanel.ResumeLayout(false);
             this.ConnectPanel.PerformLayout();
-            this.messagePanel.ResumeLayout(false);
-            this.messagePanel.PerformLayout();
+            this.MessagePanel.ResumeLayout(false);
+            this.MessagePanel.PerformLayout();
             this.UsernamePanel.ResumeLayout(false);
             this.UsernamePanel.PerformLayout();
             this.GameFieldPanel.ResumeLayout(false);
@@ -213,7 +213,7 @@
         private System.Windows.Forms.TextBox ConnectTextBox;
         private System.Windows.Forms.Label ConnectLabel;
         private System.Windows.Forms.Panel ConnectPanel;
-        private System.Windows.Forms.Panel messagePanel;
+        private System.Windows.Forms.Panel MessagePanel;
         private System.Windows.Forms.ListBox messageBox;
         private System.Windows.Forms.Button messageButton;
         private System.Windows.Forms.TextBox messageText;

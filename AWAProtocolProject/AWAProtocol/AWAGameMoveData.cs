@@ -8,12 +8,16 @@ namespace AWAProtocol
 {
     public class AWAGameMoveData
     {
-        public string Json { get; set; }
+        public int XPos { get; set; }
+        public int YPos { get; set; }
+        public int PlayerId { get; set; }
         public GameMoveType MoveType { get; set; }
-        public AWAGameMoveData(string json, GameMoveType moveType)
+        public AWAGameMoveData(GameMoveType moveType, int playerId, int xPos, int yPos)
         {
             MoveType = moveType;
-            Json = json;
+            PlayerId = playerId;
+            XPos = xPos;
+            YPos = yPos;
         }
     }
 }

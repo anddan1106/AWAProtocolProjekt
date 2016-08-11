@@ -43,57 +43,19 @@ namespace AWAProtocolProjectServer
                 {
                     TcpClient c = listener.AcceptTcpClient();
 
-                    Log.WriteLine("user connecting");
-
-                    BinaryWriter w = new BinaryWriter(c.GetStream());
-                    AWARequest request = ProtocolUtils.CreateRequest("1", RequestType.Username, "Choose your name."); //TODO fixa en Id-generator
-                    string clientName = "";
-
-                    do
-                    {
-                        w.Write(ProtocolUtils.Serialize(request));
-                        w.Flush();
-                        Log.WriteLine("server sending request");
-                        var obj = ProtocolUtils.Deserialize(new BinaryReader(c.GetStream()).ReadString());
-
-                        Log.WriteLine("connected user response");
-
-
-                        if (obj != null)
-                        {
-                            if (obj.Command.Type == CommandType.Response
-                                && ((AWAResponse)obj).Data.ResponseType == ResponseType.Username)
-                                clientName = ((AWAResponse)obj).Data.Message;
-
-                            request.Data.Message = "Namnet är upptaget. Ange ett nytt namn.";
-                        }
-                        else
-                        {
-                            Log.WriteLine("incoming message was not valid");
-                        }
-
-                    } while (players.Exists(p => p.Name == clientName));
-
-                    //TODO skicka ett namn-ok..
-                    w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateOk("Username ok")));
-                    w.Flush();
-
-                    AddNewPlayer(c, clientName);
-                    Log.WriteLine($"{clientName}: ansluten");
+                    Thread clientThread = new Thread(AddNewPlayer);
+                    clientThread.Start(c);
 
                 }
                 Log.WriteLine("två spelare anslutna");
 
                 //TODO skicka signal om att stara spelet med spelarnas positioner
-                string Json = $"{{{nameof(Height)} : {Height}, {nameof(Width)} : {Width}}}";
-                foreach (Player player in players)
-                {
-                    BinaryWriter w = new BinaryWriter(player.c.GetStream());
-                    w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateMove(Json,CommandType.GameInit, GameMoveType.InitiateField)));
-                    w.Flush();
-                }
                 // lista med spelare (id, position)
                 // storleken på planen
+                foreach (Player player in players)
+                {
+
+                }
 
             }
             catch (Exception ex)
@@ -108,15 +70,89 @@ namespace AWAProtocolProjectServer
 
         }
 
-        private void AddNewPlayer(TcpClient c, string clientName)
+
+        public void AddNewPlayer(object o)
         {
-            Player newPlayer = new Player(c, this, clientName);
+            TcpClient c = (TcpClient)o;
+            BinaryWriter w;
+            string playerName = "";
+            Log.WriteLine("user connecting");
 
-            Thread clientThread = new Thread(newPlayer.Run);
-            clientThread.Start();
+            try
+            {
+                w = new BinaryWriter(c.GetStream());
+                AWARequest request = ProtocolUtils.CreateRequest("1", RequestType.Username, "Choose your name."); //TODO fixa en Id-generator
 
-            players.Add(newPlayer);
+                bool AskForUsername = true;
+                do
+                {
+                    w.Write(ProtocolUtils.Serialize(request));
+                    w.Flush();
+                    Log.WriteLine("server sending request");
+
+                    var obj = ProtocolUtils.Deserialize(new BinaryReader(c.GetStream()).ReadString());
+
+                    Log.WriteLine("connected user response");
+
+                    if (obj != null)
+                    {
+                        if (obj.Command.Type == CommandType.Response
+                            && ((AWAResponse)obj).Data.ResponseType == ResponseType.Username)
+                        {
+                            playerName = ((AWAResponse)obj).Data.Message;
+                            lock (players)
+                            {
+                                if (!players.Exists(p => p.Name == playerName))
+                                {
+                                    players.Add(new Player(c, this, playerName, players.Count() == 0 ? 1 : players.Max(p => p.Id)+1));
+                                    AskForUsername = false;
+                                }
+                                else
+                                    request.Data.Message = "Namnet är upptaget. Ange ett nytt namn.";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Log.WriteLine("incoming message was not valid");
+                    }
+
+                } while (AskForUsername);
+
+                w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateOk("Username ok")));
+                w.Flush();
+
+            }
+            catch (Exception ex)
+            {
+                Log.WriteLine(ex.Message);
+
+            }
+
+            Log.WriteLine($"{playerName}: ansluten");
+            Player newPlayer = players.SingleOrDefault(p => p.Name == playerName);
+
+            string Json = $"{{\"Height\" : {Height}, \"Width\" : {Width}}}";
+            w = new BinaryWriter(c.GetStream());
+            w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateGameInit(Height, Width)));
+            w.Flush();
+            w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerInit(newPlayer.Id, Height/2, Width/2)));
+            w.Flush();
+
+            Listen(newPlayer);
+
         }
+
+        private void Listen(Player player)
+        {
+            while (player.IsAlive)
+            {
+            //TODO Listen for player input
+
+            }
+
+        }
+
         public void RemovePlayer(Player player)
         {
             players.Remove(player);

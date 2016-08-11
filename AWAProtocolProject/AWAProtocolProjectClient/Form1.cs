@@ -25,7 +25,6 @@ namespace AWAProtocolProjectClient
         public Form1()
         {
             InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false;
         }
 
 
@@ -79,14 +78,17 @@ namespace AWAProtocolProjectClient
                 NetworkStream n = server.GetStream();
                 while (true)
                 {
-                    AWABase obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
+                    string str = new BinaryReader(n).ReadString();
+                    AWABase obj = ProtocolUtils.Deserialize(str);
                     if (obj == null)
                     {
+                        Invoke((Action)(() => { messageBox.Items.Add(str); }));
                         var errorObj = ProtocolUtils.CreateError(1);
                         sendObject(n, errorObj);
                     }
                     else
                     {
+                        Invoke((Action)(() => { messageBox.Items.Add("valid"); }));
                         switch (obj.Command.Type)
                         {
                             case AWAProtocol.CommandType.Message:
@@ -98,10 +100,16 @@ namespace AWAProtocolProjectClient
                                 break;
 
                             case AWAProtocol.CommandType.GameInit:
-                                CreateGame(((AWAGameMove)obj).Data.Json, ((AWAGameMove)obj).Data.MoveType);
+                                CreateGame(((AWAGameInit)obj).Data.Height, ((AWAGameInit)obj).Data.Width);
+                                Invoke((Action)(() => { messageBox.Items.Add("Game Edit"); }));
+                                break;
+
+                            case AWAProtocol.CommandType.PlayerInit:
+                                Invoke((Action)(() => { messageBox.Items.Add("Player Init"); }));
+                                // TODO place player
                                 break;
                             case AWAProtocol.CommandType.GameMove:
-                                PlayerMove(((AWAGameMove)obj).Data.Json);
+                                // TODO move player
                                 break;
 
                             default:
@@ -117,10 +125,31 @@ namespace AWAProtocolProjectClient
             }
         }
 
-        private void CreateGame(string json, GameMoveType moveType)
+        private void CreateGame(int h, int w)
         {
             //TODO om moveType ör field size eller spelares placering
-            throw new NotImplementedException();
+            GameFieldLabel.Visible = false;
+            GameFieldPanel.Show();
+            Panel newPanel = new Panel();
+            for (int i = 0; i < h; i++)
+            {
+                for (int j = 0; j < w; j++)
+                {
+                    if (this.InvokeRequired)
+                    {
+                        Invoke((Action)(() =>
+                        {
+                            PictureBox pictureBox = new PictureBox();
+                            pictureBox.Location = new Point(0 + i * 40, 0 + j * 40);
+                            pictureBox.Size = new System.Drawing.Size(40, 40);
+                            pictureBox.BackColor = (i + j) % 2 == 0 ? Color.Black : Color.White;
+                            this.GameFieldPanel.Controls.Add(pictureBox);
+                        }));
+
+                    }
+                }
+            }
+
         }
 
         private void PlayerMove(string json)

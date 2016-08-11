@@ -16,13 +16,15 @@ namespace AWAProtocolProjectServer
         public string Name { get; set; }
         public char Icon { get; set; }
         public bool IsAlive { get; set; }
+        public int Id { get; set; }
 
 
-        public Player(TcpClient c, Game game, string name)
+        public Player(TcpClient c, Game game, string name, int id)
         {
             this.c = c;
             this.game = game;
             Name = name;
+            Id = id;
             Icon = 'P';
             IsAlive = true;
         }

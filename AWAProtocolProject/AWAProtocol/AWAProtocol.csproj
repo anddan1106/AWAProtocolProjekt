@@ -45,12 +45,15 @@
     <Compile Include="AWACommand.cs" />
     <Compile Include="AWAData.cs" />
     <Compile Include="AWAErrorData.cs" />
+    <Compile Include="AWAGameInit.cs" />
+    <Compile Include="AWAGameInitData.cs" />
     <Compile Include="AWAGameMove.cs" />
     <Compile Include="AWAGameMoveData.cs" />
     <Compile Include="AWAMessage.cs" />
     <Compile Include="AWAMessageData.cs" />
     <Compile Include="AWAOk.cs" />
     <Compile Include="AWAOkData.cs" />
+    <Compile Include="AWAPlayerInit.cs" />
     <Compile Include="AWARequest.cs" />
     <Compile Include="AWARequestData.cs" />
     <Compile Include="AWAResponse.cs" />

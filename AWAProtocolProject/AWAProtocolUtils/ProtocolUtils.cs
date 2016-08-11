@@ -18,8 +18,8 @@ namespace AWAProtocolUtils
             {
                 var obj = JsonConvert.DeserializeObject<AWABase>(data);
 
-                if (obj.Command != null 
-                    && obj.Version != null 
+                if (obj.Command != null
+                    && obj.Version != null
                     && obj.Data != null)
                 {
 
@@ -27,7 +27,7 @@ namespace AWAProtocolUtils
                     {
                         case CommandType.Message:
                             var msg = JsonConvert.DeserializeObject<AWAMessage>(data);
-                            if (msg.Data.Message != null) 
+                            if (msg.Data.Message != null)
                                 return msg;
                             break;
 
@@ -48,12 +48,25 @@ namespace AWAProtocolUtils
                             if (res.Data.Id != null && res.Data.Id.Length > 0)
                                 return res;
                             break;
+
                         case CommandType.Ok:
                             var ok = JsonConvert.DeserializeObject<AWAOk>(data);
                             if (ok.Data.Message != null && ok.Data.Message.Length > 0)
                                 return ok;
                             break;
 
+                        case CommandType.GameInit:
+                            var gin = JsonConvert.DeserializeObject<AWAGameInit>(data);
+                            if (gin.Data.Height > 0 && gin.Data.Width > 0)
+                                return gin;
+                            break;
+                        case CommandType.PlayerInit:
+                            var pin = JsonConvert.DeserializeObject<AWAPlayerInit>(data);
+                            if (pin.Data.MoveType == GameMoveType.InitiatePlayer
+                                && pin.Data.PlayerId > 0 && pin.Data.XPos >= 0
+                                && pin.Data.YPos >= 0)
+                                return pin;
+                            break;
                         default:
                             break;
                     }
@@ -67,17 +80,14 @@ namespace AWAProtocolUtils
             }
             return null;
         }
-
-        public static AWAMessage CreateMessage(string message, string version = "1.0")
-        {
-            return new AWAMessage(version, message);
-        }
-
         public static AWAError CreateError(int code, string version = "1.0")
         {
             return new AWAError(version, code);
         }
-
+        public static AWAMessage CreateMessage(string message, string version = "1.0")
+        {
+            return new AWAMessage(version, message);
+        }
         public static AWARequest CreateRequest(string id, RequestType requestFor, string message, string version = "1.0")
         {
             return new AWARequest(id, requestFor, message, version);
@@ -86,9 +96,17 @@ namespace AWAProtocolUtils
         {
             return new AWAOk(version, message);
         }
-        public static AWAGameMove CreateMove(string Json, CommandType commandType, GameMoveType moveType, string version = "1.0")
+        public static AWAGameMove CreateGameMove(GameMoveType moveType, int playerId, int xPos, int yPos , string version = "1.0")
         {
-            return new AWAGameMove(version, commandType, moveType, Json);
+            return new AWAGameMove(version, moveType, playerId, xPos, yPos);
+        }
+        public static AWAPlayerInit CreatePlayerInit(int playerId, int xPos, int yPos, string version = "1.0")
+        {
+            return new AWAPlayerInit(version, GameMoveType.InitiatePlayer, playerId, xPos, yPos);
+        }
+        public static AWAGameInit CreateGameInit(int height, int width, string version = "1.0")
+        {
+            return new AWAGameInit(version, height, width);
         }
 
         public static string Serialize(AWABase obj)

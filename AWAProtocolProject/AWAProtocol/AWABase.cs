@@ -18,8 +18,8 @@ namespace AWAProtocol
     }
     public enum RequestType { Username };
     public enum ResponseType { Username };
-    public enum CommandType { Error, Message, Request, Response, Ok , GameMove, GameInit};
-    public enum GameMoveType { InitiateField, InitiatePlayers, PlayerMove}
+    public enum CommandType { Error, Message, Request, Response, Ok , GameMove, GameInit, PlayerInit};
+    public enum GameMoveType { InitiatePlayer, MovePlayer}
 
 
 }
