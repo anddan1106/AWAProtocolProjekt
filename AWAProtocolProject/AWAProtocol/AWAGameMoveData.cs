@@ -12,8 +12,10 @@ namespace AWAProtocol
         public int YPos { get; set; }
         public int PlayerId { get; set; }
         public GameMoveType MoveType { get; set; }
-        public AWAGameMoveData(GameMoveType moveType, int playerId, int xPos, int yPos)
+        public MoveDirection Direction { get; set; }
+        public AWAGameMoveData(GameMoveType moveType, int playerId, int xPos, int yPos, MoveDirection direction)
         {
+            Direction = direction;
             MoveType = moveType;
             PlayerId = playerId;
             XPos = xPos;

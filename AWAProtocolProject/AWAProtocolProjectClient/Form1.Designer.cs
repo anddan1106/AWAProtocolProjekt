@@ -42,6 +42,10 @@
             this.UsernameTextBox = new System.Windows.Forms.TextBox();
             this.GameFieldPanel = new System.Windows.Forms.Panel();
             this.GameFieldLabel = new System.Windows.Forms.Label();
+            this.UpButton = new System.Windows.Forms.Button();
+            this.LeftButton = new System.Windows.Forms.Button();
+            this.DownButton = new System.Windows.Forms.Button();
+            this.RightButton = new System.Windows.Forms.Button();
             this.ConnectPanel.SuspendLayout();
             this.MessagePanel.SuspendLayout();
             this.UsernamePanel.SuspendLayout();
@@ -82,7 +86,7 @@
             this.ConnectPanel.Controls.Add(this.ConnectLabel);
             this.ConnectPanel.Controls.Add(this.ConnectButton);
             this.ConnectPanel.Controls.Add(this.ConnectTextBox);
-            this.ConnectPanel.Location = new System.Drawing.Point(597, 67);
+            this.ConnectPanel.Location = new System.Drawing.Point(601, 27);
             this.ConnectPanel.Name = "ConnectPanel";
             this.ConnectPanel.Size = new System.Drawing.Size(300, 223);
             this.ConnectPanel.TabIndex = 3;
@@ -94,7 +98,7 @@
             this.MessagePanel.Controls.Add(this.messageButton);
             this.MessagePanel.Controls.Add(this.messageText);
             this.MessagePanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.MessagePanel.Location = new System.Drawing.Point(0, 461);
+            this.MessagePanel.Location = new System.Drawing.Point(0, 658);
             this.MessagePanel.Name = "MessagePanel";
             this.MessagePanel.Size = new System.Drawing.Size(1374, 185);
             this.MessagePanel.TabIndex = 4;
@@ -130,7 +134,7 @@
             this.UsernamePanel.Controls.Add(this.UsernameLabel);
             this.UsernamePanel.Controls.Add(this.UsernameButton);
             this.UsernamePanel.Controls.Add(this.UsernameTextBox);
-            this.UsernamePanel.Location = new System.Drawing.Point(910, 163);
+            this.UsernamePanel.Location = new System.Drawing.Point(602, 29);
             this.UsernamePanel.Name = "UsernamePanel";
             this.UsernamePanel.Size = new System.Drawing.Size(300, 223);
             this.UsernamePanel.TabIndex = 4;
@@ -167,16 +171,18 @@
             // 
             // GameFieldPanel
             // 
+            this.GameFieldPanel.BackColor = System.Drawing.SystemColors.Control;
             this.GameFieldPanel.Controls.Add(this.GameFieldLabel);
             this.GameFieldPanel.Location = new System.Drawing.Point(30, 13);
             this.GameFieldPanel.Name = "GameFieldPanel";
-            this.GameFieldPanel.Size = new System.Drawing.Size(551, 442);
+            this.GameFieldPanel.Size = new System.Drawing.Size(640, 640);
             this.GameFieldPanel.TabIndex = 5;
             this.GameFieldPanel.Visible = false;
             // 
             // GameFieldLabel
             // 
             this.GameFieldLabel.AutoSize = true;
+            this.GameFieldLabel.BackColor = System.Drawing.Color.Transparent;
             this.GameFieldLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GameFieldLabel.Location = new System.Drawing.Point(79, 103);
             this.GameFieldLabel.Name = "GameFieldLabel";
@@ -184,15 +190,60 @@
             this.GameFieldLabel.TabIndex = 0;
             this.GameFieldLabel.Text = "GameFieldLabel";
             // 
+            // UpButton
+            // 
+            this.UpButton.Location = new System.Drawing.Point(736, 325);
+            this.UpButton.Name = "UpButton";
+            this.UpButton.Size = new System.Drawing.Size(46, 29);
+            this.UpButton.TabIndex = 6;
+            this.UpButton.Text = "Up";
+            this.UpButton.UseVisualStyleBackColor = true;
+            this.UpButton.Click += new System.EventHandler(this.Button_Click);
+            // 
+            // LeftButton
+            // 
+            this.LeftButton.Location = new System.Drawing.Point(676, 383);
+            this.LeftButton.Name = "LeftButton";
+            this.LeftButton.Size = new System.Drawing.Size(46, 29);
+            this.LeftButton.TabIndex = 7;
+            this.LeftButton.Text = "Left";
+            this.LeftButton.UseVisualStyleBackColor = true;
+            this.LeftButton.Click += new System.EventHandler(this.Button_Click);
+            // 
+            // DownButton
+            // 
+            this.DownButton.Location = new System.Drawing.Point(736, 383);
+            this.DownButton.Name = "DownButton";
+            this.DownButton.Size = new System.Drawing.Size(46, 29);
+            this.DownButton.TabIndex = 8;
+            this.DownButton.Text = "Down";
+            this.DownButton.UseVisualStyleBackColor = true;
+            this.DownButton.Click += new System.EventHandler(this.Button_Click);
+            // 
+            // RightButton
+            // 
+            this.RightButton.Location = new System.Drawing.Point(799, 383);
+            this.RightButton.Name = "RightButton";
+            this.RightButton.Size = new System.Drawing.Size(46, 29);
+            this.RightButton.TabIndex = 9;
+            this.RightButton.Text = "Right";
+            this.RightButton.UseVisualStyleBackColor = true;
+            this.RightButton.Click += new System.EventHandler(this.Button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1374, 646);
-            this.Controls.Add(this.GameFieldPanel);
+            this.ClientSize = new System.Drawing.Size(1374, 843);
+            this.Controls.Add(this.RightButton);
+            this.Controls.Add(this.DownButton);
+            this.Controls.Add(this.LeftButton);
+            this.Controls.Add(this.UpButton);
             this.Controls.Add(this.ConnectPanel);
             this.Controls.Add(this.UsernamePanel);
             this.Controls.Add(this.MessagePanel);
+            this.Controls.Add(this.GameFieldPanel);
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.ConnectPanel.ResumeLayout(false);
@@ -223,6 +274,10 @@
         private System.Windows.Forms.TextBox UsernameTextBox;
         private System.Windows.Forms.Panel GameFieldPanel;
         private System.Windows.Forms.Label GameFieldLabel;
+        private System.Windows.Forms.Button UpButton;
+        private System.Windows.Forms.Button LeftButton;
+        private System.Windows.Forms.Button DownButton;
+        private System.Windows.Forms.Button RightButton;
     }
 }
 

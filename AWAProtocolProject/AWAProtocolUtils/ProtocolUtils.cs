@@ -67,6 +67,12 @@ namespace AWAProtocolUtils
                                 && pin.Data.YPos >= 0)
                                 return pin;
                             break;
+                        case CommandType.GameMove:
+                            var move = JsonConvert.DeserializeObject<AWAGameMove>(data);
+                            if (move.Data.PlayerId > 0 && move.Data.XPos >= 0
+                                && move.Data.YPos >= 0)
+                                return move;
+                            break;
                         default:
                             break;
                     }
@@ -96,13 +102,13 @@ namespace AWAProtocolUtils
         {
             return new AWAOk(version, message);
         }
-        public static AWAGameMove CreateGameMove(GameMoveType moveType, int playerId, int xPos, int yPos , string version = "1.0")
+        public static AWAGameMove CreateGameMove(GameMoveType moveType, int playerId, int xPos, int yPos, MoveDirection direction, string version = "1.0")
         {
-            return new AWAGameMove(version, moveType, playerId, xPos, yPos);
+            return new AWAGameMove(version, moveType, playerId, xPos, yPos, direction);
         }
-        public static AWAPlayerInit CreatePlayerInit(int playerId, int xPos, int yPos, string version = "1.0")
+        public static AWAPlayerInit CreatePlayerInit(int playerId, int xPos, int yPos, MoveDirection direction, string version = "1.0")
         {
-            return new AWAPlayerInit(version, GameMoveType.InitiatePlayer, playerId, xPos, yPos);
+            return new AWAPlayerInit(version, GameMoveType.InitiatePlayer, playerId, xPos, yPos, direction);
         }
         public static AWAGameInit CreateGameInit(int height, int width, string version = "1.0")
         {

@@ -16,8 +16,8 @@ namespace AWAProtocolProjectServer
     {
         List<Player> players = new List<Player>();
         public Tile[][] GameField { get; set; }
-        public int Height { get; set; } = 10;
-        public int Width { get; set; } = 10;
+        public int Height { get; set; } = 12;
+        public int Width { get; set; } = 12;
         public bool IsAlive { get; private set; }
 
         public void Run()
@@ -104,7 +104,7 @@ namespace AWAProtocolProjectServer
                             {
                                 if (!players.Exists(p => p.Name == playerName))
                                 {
-                                    players.Add(new Player(c, this, playerName, players.Count() == 0 ? 1 : players.Max(p => p.Id)+1));
+                                    players.Add(new Player(c, this, playerName, players.Count() == 0 ? 1 : players.Max(p => p.Id) + 1));
                                     AskForUsername = false;
                                 }
                                 else
@@ -136,7 +136,7 @@ namespace AWAProtocolProjectServer
             w = new BinaryWriter(c.GetStream());
             w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateGameInit(Height, Width)));
             w.Flush();
-            w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerInit(newPlayer.Id, Height/2, Width/2)));
+            w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerInit(newPlayer.Id, 0, 0, MoveDirection.Down)));
             w.Flush();
 
             Listen(newPlayer);
@@ -147,8 +147,32 @@ namespace AWAProtocolProjectServer
         {
             while (player.IsAlive)
             {
-            //TODO Listen for player input
+                //TODO Listen for player input
+                var obj = ProtocolUtils.Deserialize(new BinaryReader(player.c.GetStream()).ReadString());
+                if (obj != null)
+                {
+                    if(obj.Command.Type == CommandType.GameMove)
+                    {
+                        Log.WriteLine("gameMove");
+                        foreach (var p in players)
+                        {
+                            var w = new BinaryWriter(p.c.GetStream());
+                            w.Write(ProtocolUtils.Serialize((AWAGameMove)obj));
+                            w.Flush();
+                        }
+                    }
+                    else if (obj.Command.Type == CommandType.Message)
+                    {
+                        Log.WriteLine("Message");
+                        foreach (var p in players)
+                        {
+                            var w = new BinaryWriter(p.c.GetStream());
+                            w.Write(ProtocolUtils.Serialize((AWAMessage)obj));
+                            w.Flush();
+                        }
 
+                    }
+                }                
             }
 
         }
