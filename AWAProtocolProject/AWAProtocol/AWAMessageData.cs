@@ -9,8 +9,10 @@ namespace AWAProtocol
     public class AWAMessageData : AWAData
     {
         public string Message { get; set; }
-        public AWAMessageData(string message)
+        public int SenderId { get; set; }
+        public AWAMessageData(string message, int senderId)
         {
+            SenderId = senderId;
             Message = message;
         }
     }

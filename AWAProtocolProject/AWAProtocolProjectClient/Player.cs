@@ -15,13 +15,15 @@ namespace AWAProtocolProjectClient
         public int YPos { get; set; }
         public int Id { get; set; }
         public int Color { get; set; }
+        public string Name { get; set; }
         public List<PictureBox> Images { get; set; }
 
-        public Player(int id, int xPos, int yPos, int color = 2)
+        public Player(int id, string name, int xPos, int yPos, int color = 2)
         {
             XPos = xPos;
             YPos = yPos;
             Id = id;
+            Name = name;
             Color = color;
             Images = new List<PictureBox>();
             for (int i = 0; i < 4; i++)

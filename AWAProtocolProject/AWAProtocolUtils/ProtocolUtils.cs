@@ -90,9 +90,9 @@ namespace AWAProtocolUtils
         {
             return new AWAError(version, code);
         }
-        public static AWAMessage CreateMessage(string message, string version = "1.0")
+        public static AWAMessage CreateMessage(string message, int senderId, string version = "1.0")
         {
-            return new AWAMessage(version, message);
+            return new AWAMessage(version, message, senderId);
         }
         public static AWARequest CreateRequest(string id, RequestType requestFor, string message, string version = "1.0")
         {
@@ -102,13 +102,13 @@ namespace AWAProtocolUtils
         {
             return new AWAOk(version, message);
         }
-        public static AWAGameMove CreateGameMove(GameMoveType moveType, int playerId, int xPos, int yPos, MoveDirection direction, string version = "1.0")
+        public static AWAGameMove CreateGameMove(GameMoveType moveType, int playerId, string name, int xPos, int yPos, MoveDirection direction, string version = "1.0")
         {
-            return new AWAGameMove(version, moveType, playerId, xPos, yPos, direction);
+            return new AWAGameMove(version, moveType, playerId, name, xPos, yPos, direction);
         }
-        public static AWAPlayerInit CreatePlayerInit(int playerId, int xPos, int yPos, MoveDirection direction, string version = "1.0")
+        public static AWAPlayerInit CreatePlayerInit(string name, int playerId, int xPos, int yPos, MoveDirection direction, string version = "1.0")
         {
-            return new AWAPlayerInit(version, GameMoveType.InitiatePlayer, playerId, xPos, yPos, direction);
+            return new AWAPlayerInit(version, GameMoveType.InitiatePlayer, playerId, name, xPos, yPos, direction);
         }
         public static AWAGameInit CreateGameInit(int height, int width, string version = "1.0")
         {
