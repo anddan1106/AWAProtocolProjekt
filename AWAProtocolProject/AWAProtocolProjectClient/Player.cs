@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AWAProtocol;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -16,6 +17,7 @@ namespace AWAProtocolProjectClient
         public int Id { get; set; }
         public int Color { get; set; }
         public string Name { get; set; }
+        public MoveDirection CurrentDirection { get; set; }
         public List<PictureBox> Images { get; set; }
 
         public Player(int id, string name, int xPos, int yPos, int color = 2)
@@ -25,6 +27,7 @@ namespace AWAProtocolProjectClient
             Id = id;
             Name = name;
             Color = color;
+            CurrentDirection = MoveDirection.Down;
             Images = new List<PictureBox>();
             for (int i = 0; i < 4; i++)
             {

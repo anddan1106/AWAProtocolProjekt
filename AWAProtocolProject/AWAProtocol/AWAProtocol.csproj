@@ -45,6 +45,8 @@
     <Compile Include="AWACommand.cs" />
     <Compile Include="AWAData.cs" />
     <Compile Include="AWAErrorData.cs" />
+    <Compile Include="AWAGameAttack.cs" />
+    <Compile Include="AWAGameAttackData.cs" />
     <Compile Include="AWAGameInit.cs" />
     <Compile Include="AWAGameInitData.cs" />
     <Compile Include="AWAGameMove.cs" />

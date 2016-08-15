@@ -233,6 +233,7 @@ namespace AWAProtocolProjectClient
         }
         private void MovePlayer(Player p, int xPos, int yPos, MoveDirection direction, bool create = false)
         {
+            p.CurrentDirection = direction;
             if (create)
             {
 
@@ -240,8 +241,9 @@ namespace AWAProtocolProjectClient
                     Invoke((Action)(() =>
                     {
                         PictureBox i = new PictureBox() { Name = p.Id.ToString() };
-                        i.Name = p.Images[(int)direction].Name;
-                        i.Image = p.Images[(int)direction].Image;
+                        i.BackColor = Color.Transparent;
+                        i.Name = p.Images[(int)p.CurrentDirection].Name;
+                        i.Image = p.Images[(int)p.CurrentDirection].Image;
                         i.Size = new Size(32, 32);
                         i.Location = new Point(xPos, yPos);
                         GameFieldPanel.Controls.Add(i);
@@ -253,7 +255,7 @@ namespace AWAProtocolProjectClient
                 else
                 {
                     p.Images[(int)direction].Location = new Point(xPos, yPos);
-                    GameFieldPanel.Controls.Add(p.Images[(int)direction]);
+                    GameFieldPanel.Controls.Add(p.Images[(int)p.CurrentDirection]);
                 }
             }
             else
@@ -263,13 +265,13 @@ namespace AWAProtocolProjectClient
                     {
                         var playerImage = GameFieldPanel.Controls.Find(p.Id.ToString(), false).First();
                         playerImage.Location = new Point(xPos, yPos);
-                        ((PictureBox)playerImage).Image = p.Images[(int)direction].Image;
+                        ((PictureBox)playerImage).Image = p.Images[(int)p.CurrentDirection].Image;
                     }));
                 else
                 {
                     var playerImage = GameFieldPanel.Controls.Find(p.Id.ToString(), false).First();
                     playerImage.Location = new Point(xPos, yPos);
-                    ((PictureBox)playerImage).Image = p.Images[(int)direction].Image;
+                    ((PictureBox)playerImage).Image = p.Images[(int)p.CurrentDirection].Image;
                 }
             }
         }

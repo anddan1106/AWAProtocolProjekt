@@ -123,37 +123,40 @@ namespace AWAProtocolProjectServer
             catch (Exception ex)
             {
                 Log.WriteLine(ex.Message);
-
             }
 
             Player newPlayer = players.SingleOrDefault(p => p.Name == playerName);
-            Log.WriteLine($"{playerName} id {newPlayer.Id}: ansluten");
-
-            string Json = $"{{\"Height\" : {Height}, \"Width\" : {Width}}}";
-            w = new BinaryWriter(c.GetStream());
-            w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateGameInit(Height, Width)));
-            w.Flush();
-            w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerInit(
-                newPlayer.Name, newPlayer.Id, newPlayer.XPos, newPlayer.YPos, MoveDirection.Down)));
-            w.Flush();
-            foreach (var p in players)
+            if (newPlayer != null)
             {
-                if (p.Id != newPlayer.Id)
+
+                Log.WriteLine($"{playerName} id {newPlayer.Id}: ansluten");
+
+                string Json = $"{{\"Height\" : {Height}, \"Width\" : {Width}}}";
+                w = new BinaryWriter(c.GetStream());
+                w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateGameInit(Height, Width)));
+                w.Flush();
+                w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerInit(
+                    newPlayer.Name, newPlayer.Id, newPlayer.XPos, newPlayer.YPos, MoveDirection.Down)));
+                w.Flush();
+                foreach (var p in players)
                 {
-                    BinaryWriter writer = new BinaryWriter(p.c.GetStream());
-                    writer.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateGameMove(
-                        GameMoveType.InitiatePlayer, newPlayer.Id, newPlayer.Name, newPlayer.XPos, newPlayer.YPos, MoveDirection.Down)));
-                    writer.Flush();
-                    writer = new BinaryWriter(newPlayer.c.GetStream());
-                    writer.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateGameMove(
-                        GameMoveType.InitiatePlayer, p.Id, p.Name, p.XPos, p.YPos, MoveDirection.Down)));
-                    Log.WriteLine("player" + p.Name + " : " + p.XPos + " : " + p.YPos);
-                    writer.Flush();
+                    if (p.Id != newPlayer.Id)
+                    {
+                        BinaryWriter writer = new BinaryWriter(p.c.GetStream());
+                        writer.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateGameMove(
+                            GameMoveType.InitiatePlayer, newPlayer.Id, newPlayer.Name, newPlayer.XPos, newPlayer.YPos, MoveDirection.Down)));
+                        writer.Flush();
+                        writer = new BinaryWriter(newPlayer.c.GetStream());
+                        writer.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateGameMove(
+                            GameMoveType.InitiatePlayer, p.Id, p.Name, p.XPos, p.YPos, MoveDirection.Down)));
+                        Log.WriteLine("player" + p.Name + " : " + p.XPos + " : " + p.YPos);
+                        writer.Flush();
+                    }
                 }
+
+                Listen(newPlayer);
+
             }
-
-            Listen(newPlayer);
-
         }
 
         private void Listen(Player player)
@@ -204,9 +207,8 @@ namespace AWAProtocolProjectServer
                 w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerRemove(id)));
                 w.Flush();
             }
-
-            IsAlive = false;
-            //TODO send message to other players
+            if (players.Count <= 0)
+                IsAlive = false;
         }
 
         public void Init()
