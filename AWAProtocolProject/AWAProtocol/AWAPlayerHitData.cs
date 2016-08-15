@@ -2,14 +2,14 @@
 {
     public class AWAPlayerHitData : AWAData
     {
-        public int Id { get; set; }
-        public string Attacker { get; set; }
-        public int Damage { get; set; }
-        public AWAPlayerHitData(int id, string attacker, int damage)
+        public int VictimId { get; set; }
+        public int AttackerId { get; set; }
+        public int NewHealth { get; set; }
+        public AWAPlayerHitData(int victimId, int attackerId, int newHealth)
         {
-            Id = id;
-            Attacker = attacker;
-            Damage = damage;
+            VictimId = victimId;
+            AttackerId = attackerId;
+            NewHealth = newHealth;
         }
     }
 }

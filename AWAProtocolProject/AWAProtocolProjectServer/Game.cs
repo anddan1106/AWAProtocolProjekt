@@ -194,7 +194,6 @@ namespace AWAProtocolProjectServer
                             }
                             break;
                         case CommandType.GameAttack:
-
                             int hitX = ((AWAGameAttack)obj).Data.XPos;
                             int hitY = ((AWAGameAttack)obj).Data.YPos;
                             switch (((AWAGameAttack)obj).Data.Direction)
@@ -222,15 +221,17 @@ namespace AWAProtocolProjectServer
                                 w.Flush();
                                 if (p.XPos == hitX && p.YPos == hitY)
                                 {
+                                    p.Health -= ((AWAGameAttack)obj).Data.Damage;
                                     string attacker = players.SingleOrDefault(o => o.Id == ((AWAGameAttack)obj).Data.Id).Name;
                                     foreach (Player p2 in players)
                                     {
                                         w = new BinaryWriter(p2.c.GetStream());
-                                        w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerHit(p.Id, attacker, ((AWAGameAttack)obj).Data.Damage)));
+                                        w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerHit(p.Id, ((AWAGameAttack)obj).Data.Id, p.Health)));
                                         w.Flush();
                                     }
                                 }
                             }
+
                             break;
                     }
 

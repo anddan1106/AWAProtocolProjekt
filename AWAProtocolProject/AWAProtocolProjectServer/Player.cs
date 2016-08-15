@@ -16,6 +16,8 @@ namespace AWAProtocolProjectServer
         public string Name { get; set; }
         public bool IsAlive { get; set; }
         public int Id { get; set; }
+        public int Health { get; set; }
+        public int Damage { get; set; }
         public int XPos { get; set; }
         public int YPos { get; set; }
 
@@ -26,6 +28,8 @@ namespace AWAProtocolProjectServer
             this.game = game;
             Name = name;
             Id = id;
+            Health = 10;
+            Damage = 1;
             XPos = xPos;
             YPos = yPos;
 

@@ -9,11 +9,11 @@ namespace AWAProtocol
     public class AWAPlayerHit : AWABase
     {
         public new AWAPlayerHitData Data { get; set; }
-        public AWAPlayerHit(string version, int id, string attacker, int damage)
+        public AWAPlayerHit(string version, int victimId, int attackerId, int newHealth)
         {
             Version = version;
             Command = new AWACommand(CommandType.PlayerHit);
-            Data = new AWAPlayerHitData(id, attacker, damage);
+            Data = new AWAPlayerHitData(victimId, attackerId, newHealth);
         }
     }
 }

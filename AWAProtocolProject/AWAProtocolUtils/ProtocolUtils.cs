@@ -78,7 +78,12 @@ namespace AWAProtocolUtils
                             if (attack.Data.Id > 0 && attack.Data.XPos >= 0
                                 && attack.Data.YPos >= 0)
                                 return attack;
-                                break;
+                            break;
+                        case CommandType.PlayerHit:
+                            var hit = JsonConvert.DeserializeObject<AWAPlayerHit>(data);
+                            if (hit.Data.AttackerId > 0 && hit.Data.NewHealth >= 0 && hit.Data.VictimId > 0)
+                                return hit;
+                            break;
                         default:
                             break;
                     }
@@ -128,9 +133,9 @@ namespace AWAProtocolUtils
         {
             return new AWAGameAttack(version, id, direction, damage, xPos, yPos);
         }
-        public static AWAPlayerHit CreatePlayerHit(int id, string attacker, int damage, string version = "1.0")
+        public static AWAPlayerHit CreatePlayerHit(int victimId, int attackerId, int newHealth, string version = "1.0")
         {
-            return new AWAPlayerHit(version, id, attacker, damage);
+            return new AWAPlayerHit(version, victimId, attackerId, newHealth);
         }
 
         public static string Serialize(AWABase obj)
