@@ -119,7 +119,6 @@
             this.messageButton.Text = "Send";
             this.messageButton.UseVisualStyleBackColor = true;
             this.messageButton.Click += new System.EventHandler(this.messageButton_Click);
-//            this.messageButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messageButton_KeyDown);
             this.messageButton.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Button_PreviewKeyDown);
             // 
             // messageText
@@ -173,7 +172,7 @@
             // GameFieldPanel
             // 
             this.GameFieldPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.GameFieldPanel.BackgroundImage = global::AWAProtocolProjectClient.Properties.Resources.spelplan;
+            this.GameFieldPanel.BackgroundImage = global::AWAProtocolProjectClient.Properties.Resources.mobile_game_background_by_disnie_d4jmrye;
             this.GameFieldPanel.Controls.Add(this.GameFieldLabel);
             this.GameFieldPanel.Location = new System.Drawing.Point(10, 10);
             this.GameFieldPanel.Name = "GameFieldPanel";
