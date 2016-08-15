@@ -153,7 +153,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MySound.mp3.mp3" />
+    <None Include="Resources\MySound.mp3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\MySound.mp3.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
