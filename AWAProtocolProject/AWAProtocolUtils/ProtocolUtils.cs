@@ -73,6 +73,12 @@ namespace AWAProtocolUtils
                                 && move.Data.YPos >= 0)
                                 return move;
                             break;
+                        case CommandType.GameAttack:
+                            var attack = JsonConvert.DeserializeObject<AWAGameAttack>(data);
+                            if (attack.Data.Id > 0 && attack.Data.XPos >= 0
+                                && attack.Data.YPos >= 0)
+                                return attack;
+                                break;
                         default:
                             break;
                     }
@@ -117,6 +123,14 @@ namespace AWAProtocolUtils
         public static AWAGameInit CreateGameInit(int height, int width, string version = "1.0")
         {
             return new AWAGameInit(version, height, width);
+        }
+        public static AWAGameAttack CreateGameAttack(int id, MoveDirection direction, int damage, int xPos, int yPos, string version = "1.0")
+        {
+            return new AWAGameAttack(version, id, direction, damage, xPos, yPos);
+        }
+        public static AWAPlayerHit CreatePlayerHit(int id, string attacker, int damage, string version = "1.0")
+        {
+            return new AWAPlayerHit(version, id, attacker, damage);
         }
 
         public static string Serialize(AWABase obj)

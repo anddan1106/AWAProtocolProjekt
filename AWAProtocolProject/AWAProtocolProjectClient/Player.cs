@@ -15,6 +15,8 @@ namespace AWAProtocolProjectClient
         public int XPos { get; set; }
         public int YPos { get; set; }
         public int Id { get; set; }
+        public int Health { get; set; }
+        public int attackDamage { get; set; }
         public int Color { get; set; }
         public string Name { get; set; }
         public MoveDirection CurrentDirection { get; set; }
@@ -22,6 +24,8 @@ namespace AWAProtocolProjectClient
 
         public Player(int id, string name, int xPos, int yPos, int color = 2)
         {
+            Health = 10;
+            attackDamage = 1;
             XPos = xPos;
             YPos = yPos;
             Id = id;
@@ -36,7 +40,7 @@ namespace AWAProtocolProjectClient
                 //p.Image = Image.FromFile($"Images/{color}/{l[i]}.png");
                 //p.Visible = true; //ifall bilden inte syns :D
                 p.Name = Id.ToString();
-                p.Image = Image.FromFile($"Images\\{Color}\\{i}.png");
+                p.Image = Image.FromFile($"Images\\{Color}\\{Color}{(MoveDirection)i}.png");
                 p.Size = new System.Drawing.Size(32, 32);
                 Images.Add(p);
             }

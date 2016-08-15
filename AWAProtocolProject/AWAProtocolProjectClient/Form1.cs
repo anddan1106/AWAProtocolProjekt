@@ -30,12 +30,12 @@ namespace AWAProtocolProjectClient
         {
             InitializeComponent();
             ConnectTextBox.Text = GetLocalIP();
-
             this.KeyPreview = true;
             this.Controls.Add(focusObject);
             this.focusObject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Button_KeyDown);
             this.focusObject.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Button_PreviewKeyDown);
             this.focusObject.Location = new System.Drawing.Point(10, 10);
+            this.ActiveControl = ConnectTextBox;
         }
 
 
@@ -63,6 +63,7 @@ namespace AWAProtocolProjectClient
                 UsernameLabel.Text = ((AWARequest)obj).Data.Message;
                 ConnectPanel.Visible = false;
                 UsernamePanel.Show();
+                UsernameTextBox.Focus();
 
             }
             catch (Exception)
@@ -227,7 +228,9 @@ namespace AWAProtocolProjectClient
             {
                 showMessage("Creating Player");
                 player = new Player(playerId, name, xPos, yPos, 3);
+
                 MovePlayer(player, xPos, yPos, MoveDirection.Down, true);
+
             }
 
         }
@@ -347,6 +350,10 @@ namespace AWAProtocolProjectClient
                     if (player.XPos < 0)
                         player.XPos = 0;
                     break;
+                case Keys.Space:
+                    //TODO skulle kunna intergrera med gamemove.
+                    sendObject(ProtocolUtils.CreateGameAttack(player.Id, player.CurrentDirection, player.attackDamage, player.XPos, player.YPos));
+                        return;
                 default:
                     return;
             }
@@ -401,5 +408,16 @@ namespace AWAProtocolProjectClient
                 sendMessage();
         }
 
+        private void ConnectTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                ConnectButton_Click(null, null);
+        }
+
+        private void UsernameTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                UsernameButton_Click(null, null);
+        }
     }
 }

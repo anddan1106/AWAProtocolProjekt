@@ -66,6 +66,7 @@
             this.ConnectTextBox.Name = "ConnectTextBox";
             this.ConnectTextBox.Size = new System.Drawing.Size(250, 29);
             this.ConnectTextBox.TabIndex = 1;
+            this.ConnectTextBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.ConnectTextBox_PreviewKeyDown);
             // 
             // ConnectLabel
             // 
@@ -168,6 +169,7 @@
             this.UsernameTextBox.Name = "UsernameTextBox";
             this.UsernameTextBox.Size = new System.Drawing.Size(250, 29);
             this.UsernameTextBox.TabIndex = 1;
+            this.UsernameTextBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.UsernameTextBox_PreviewKeyDown);
             // 
             // GameFieldPanel
             // 
