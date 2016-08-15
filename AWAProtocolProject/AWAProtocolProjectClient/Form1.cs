@@ -20,7 +20,7 @@ namespace AWAProtocolProjectClient
     public partial class Form1 : Form
     {
         WMPLib.WindowsMediaPlayer soundPlayer = new WMPLib.WindowsMediaPlayer();
-       // System.Media.SoundPlayer sound = new System.Media.SoundPlayer ();
+        // System.Media.SoundPlayer sound = new System.Media.SoundPlayer ();
         private TcpClient server;
 
         private string serverIP = "?";
@@ -42,6 +42,7 @@ namespace AWAProtocolProjectClient
             this.focusObject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Button_KeyDown);
             this.focusObject.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Button_PreviewKeyDown);
             this.focusObject.Location = new System.Drawing.Point(10, 10);
+            this.ActiveControl = ConnectTextBox;
         }
 
 
@@ -69,7 +70,7 @@ namespace AWAProtocolProjectClient
                 UsernameLabel.Text = ((AWARequest)obj).Data.Message;
                 ConnectPanel.Visible = false;
                 UsernamePanel.Show();
-
+                UsernameTextBox.Focus();
             }
             catch (Exception)
             {
@@ -93,7 +94,7 @@ namespace AWAProtocolProjectClient
                 obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
                 if (obj != null)
                 {
-                    if (obj.Command.Type == AWAProtocol.CommandType.Request 
+                    if (obj.Command.Type == AWAProtocol.CommandType.Request
                         && ((AWARequest)obj).Data.RequestFor == RequestType.Username)
                         UsernameLabel.Text = ((AWARequest)obj).Data.Message;
                     else if (obj.Command.Type == AWAProtocol.CommandType.Ok)
@@ -353,6 +354,10 @@ namespace AWAProtocolProjectClient
                     if (player.XPos < 0)
                         player.XPos = 0;
                     break;
+                case Keys.Space:
+                    //TODO skulle kunna intergrera med gamemove.
+                    sendObject(ProtocolUtils.CreateGameAttack(player.Id, player.CurrentDirection, player.attackDamage, player.XPos, player.YPos));
+                    return;
                 default:
                     return;
             }
@@ -407,6 +412,16 @@ namespace AWAProtocolProjectClient
                 sendMessage();
         }
 
-    
-    }
+        private void ConnectTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                ConnectButton_Click(null, null);
+        }
+
+        private void UsernameTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                UsernameButton_Click(null, null);
+        }
+     }
 }
