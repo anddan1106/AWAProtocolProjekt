@@ -213,7 +213,7 @@ namespace AWAProtocolProjectServer
                                 default:
                                     break;
                             }
-
+                            Player killedPlayer = null;
                             foreach (Player p in players)
                             {
                                 var w = new BinaryWriter(p.c.GetStream());
@@ -222,6 +222,8 @@ namespace AWAProtocolProjectServer
                                 if (p.XPos == hitX && p.YPos == hitY)
                                 {
                                     p.Health -= ((AWAGameAttack)obj).Data.Damage;
+                                    if (p.Health < 1)
+                                        killedPlayer = p;
                                     string attacker = players.SingleOrDefault(o => o.Id == ((AWAGameAttack)obj).Data.Id).Name;
                                     foreach (Player p2 in players)
                                     {
@@ -231,6 +233,8 @@ namespace AWAProtocolProjectServer
                                     }
                                 }
                             }
+                            if (killedPlayer != null)
+                                RemovePlayer(killedPlayer.Id);
 
                             break;
                     }
@@ -243,13 +247,13 @@ namespace AWAProtocolProjectServer
 
         public void RemovePlayer(int id)
         {
-            players.RemoveAll(p => p.Id == id);
             foreach (Player p in players)
             {
                 var w = new BinaryWriter(p.c.GetStream());
-                w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerRemove(id)));
+                w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreateGameOver(id)));
                 w.Flush();
             }
+            players.RemoveAll(p => p.Id == id);
             if (players.Count <= 0)
                 IsAlive = false;
         }

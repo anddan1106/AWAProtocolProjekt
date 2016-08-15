@@ -208,7 +208,7 @@ namespace AWAProtocolProjectClient
                                 break;
 
                             case AWAProtocol.CommandType.GameAttack:
-                                //TODO handle game attack
+                                //TODO handle game attack mysfaktor says Dennis
                                 break;
                             case AWAProtocol.CommandType.PlayerHit:
                                 AWAPlayerHit hit = (AWAPlayerHit)obj;
@@ -235,6 +235,22 @@ namespace AWAProtocolProjectClient
                          .Text = player.Name + ":" + Environment.NewLine + $"{player.Health}";
                                         }));
                                 }
+                                break;
+                            case AWAProtocol.CommandType.GameOver:
+                                AWAGameOver gameOver = (AWAGameOver)obj;
+
+                                if (gameOver.Data.Id == player.Id)
+                                {
+                                    showMessage("YOU DIED! TOO BAD!");
+                                    focusObject.Enabled = false;
+                                    GameFieldPanel.Controls.RemoveByKey(gameOver.Data.Id.ToString());
+                                }
+                                else
+                                {
+                                    opponents.RemoveAll(o => o.Id == gameOver.Data.Id);
+                                    GameFieldPanel.Controls.RemoveByKey(gameOver.Data.Id.ToString());
+                                }
+
                                 break;
                             default:
                                 break;
@@ -303,7 +319,7 @@ namespace AWAProtocolProjectClient
                     {
                         PictureBox i = new PictureBox() { Name = p.Id.ToString() };
                         i.BackColor = Color.Transparent;
-                        i.Name = p.Images[(int)p.CurrentDirection].Name;
+                        //                        i.Name = p.Images[(int)p.CurrentDirection].Name;
                         i.Image = p.Images[(int)p.CurrentDirection].Image;
                         i.Size = new Size(32, 32);
                         i.Location = new Point(xPos, yPos);

@@ -84,6 +84,11 @@ namespace AWAProtocolUtils
                             if (hit.Data.AttackerId > 0 && hit.Data.NewHealth >= 0 && hit.Data.VictimId > 0)
                                 return hit;
                             break;
+                        case CommandType.GameOver:
+                            var GO = JsonConvert.DeserializeObject<AWAGameOver>(data);
+                            if (GO.Data.Id > 0)
+                                return GO;
+                            break;
                         default:
                             break;
                     }
@@ -121,10 +126,6 @@ namespace AWAProtocolUtils
         {
             return new AWAPlayerInit(version, GameMoveType.InitiatePlayer, playerId, name, xPos, yPos, direction);
         }
-        public static AWAPlayerRemove CreatePlayerRemove(int id, string version = "1.0")
-        {
-            return new AWAPlayerRemove(version, id);
-        }
         public static AWAGameInit CreateGameInit(int height, int width, string version = "1.0")
         {
             return new AWAGameInit(version, height, width);
@@ -136,6 +137,10 @@ namespace AWAProtocolUtils
         public static AWAPlayerHit CreatePlayerHit(int victimId, int attackerId, int newHealth, string version = "1.0")
         {
             return new AWAPlayerHit(version, victimId, attackerId, newHealth);
+        }
+        public static AWAGameOver CreateGameOver(int id, string version = "1.0")
+        {
+            return new AWAGameOver(version, id);
         }
 
         public static string Serialize(AWABase obj)

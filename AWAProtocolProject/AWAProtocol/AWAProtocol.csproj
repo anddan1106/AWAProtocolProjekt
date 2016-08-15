@@ -51,6 +51,8 @@
     <Compile Include="AWAGameInitData.cs" />
     <Compile Include="AWAGameMove.cs" />
     <Compile Include="AWAGameMoveData.cs" />
+    <Compile Include="AWAGameOver.cs" />
+    <Compile Include="AWAGameOverData.cs" />
     <Compile Include="AWAMessage.cs" />
     <Compile Include="AWAMessageData.cs" />
     <Compile Include="AWAOk.cs" />
@@ -58,8 +60,6 @@
     <Compile Include="AWAPlayerHit.cs" />
     <Compile Include="AWAPlayerHitData.cs" />
     <Compile Include="AWAPlayerInit.cs" />
-    <Compile Include="AWAPlayerRemove.cs" />
-    <Compile Include="AWAPlayerRemoveData.cs" />
     <Compile Include="AWARequest.cs" />
     <Compile Include="AWARequestData.cs" />
     <Compile Include="AWAResponse.cs" />
