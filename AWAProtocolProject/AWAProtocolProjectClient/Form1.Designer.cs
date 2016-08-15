@@ -172,6 +172,7 @@
             // GameFieldPanel
             // 
             this.GameFieldPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.GameFieldPanel.BackgroundImage = global::AWAProtocolProjectClient.Properties.Resources.spelplan;
             this.GameFieldPanel.Controls.Add(this.GameFieldLabel);
             this.GameFieldPanel.Location = new System.Drawing.Point(30, 13);
             this.GameFieldPanel.Name = "GameFieldPanel";
