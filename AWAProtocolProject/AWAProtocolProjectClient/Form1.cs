@@ -32,7 +32,7 @@ namespace AWAProtocolProjectClient
         public Form1()
         {
             InitializeComponent();
-            soundPlayer.URL = "MySound.wav";
+            soundPlayer.URL = @"C:\Projects\_Repos\AWAProtocolProjekt\AWAProtocolProject\AWAProtocolProjectClient\Resources\MySound.mp3.mp3";
             // sound.SoundLocation = "MySound.wav";
             soundPlayer.controls.play();
             ConnectTextBox.Text = GetLocalIP();

@@ -213,7 +213,7 @@
             this.Controls.Add(this.GameFieldPanel);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            //this.Load += new System.EventHandler(this.Form1_Load);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Button_PreviewKeyDown);
             this.ConnectPanel.ResumeLayout(false);
             this.ConnectPanel.PerformLayout();
