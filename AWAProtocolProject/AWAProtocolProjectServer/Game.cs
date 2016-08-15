@@ -15,6 +15,7 @@ namespace AWAProtocolProjectServer
     public class Game
     {
         List<Player> players = new List<Player>();
+        int tileSize = 32;
         public Tile[][] GameField { get; set; }
         public int Height { get; set; } = 12;
         public int Width { get; set; } = 12;
@@ -166,33 +167,75 @@ namespace AWAProtocolProjectServer
                 var obj = ProtocolUtils.Deserialize(new BinaryReader(player.c.GetStream()).ReadString());
                 if (obj != null)
                 {
-                    if (obj.Command.Type == CommandType.GameMove)
+                    switch (obj.Command.Type)
                     {
-                        var move = (AWAGameMove)obj;
-                        Log.WriteLine(move.Data.PlayerId + " moved to " + move.Data.XPos + ":" + move.Data.YPos);
-                        Player movingPlayer = players.Find(p => p.Id == move.Data.PlayerId);
-                        movingPlayer.XPos = move.Data.XPos;
-                        movingPlayer.YPos = move.Data.YPos;
-                        foreach (var p in players)
-                        {
-                            var w = new BinaryWriter(p.c.GetStream());
-                            w.Write(ProtocolUtils.Serialize((AWAGameMove)obj));
-                            w.Flush();
-                        }
-                    }
-                    else if (obj.Command.Type == CommandType.Message)
-                    {
-                        foreach (var p in players)
-                        {
-                            if (p.Id != ((AWAMessage)obj).Data.SenderId)
+                        case CommandType.GameMove:
+                            var move = (AWAGameMove)obj;
+                            Log.WriteLine(move.Data.PlayerId + " moved to " + move.Data.XPos + ":" + move.Data.YPos);
+                            Player movingPlayer = players.Find(p => p.Id == move.Data.PlayerId);
+                            movingPlayer.XPos = move.Data.XPos;
+                            movingPlayer.YPos = move.Data.YPos;
+                            foreach (var p in players)
                             {
                                 var w = new BinaryWriter(p.c.GetStream());
-                                w.Write(ProtocolUtils.Serialize((AWAMessage)obj));
+                                w.Write(ProtocolUtils.Serialize((AWAGameMove)obj));
                                 w.Flush();
                             }
-                        }
+                            break;
+                        case CommandType.Message:
+                            foreach (var p in players)
+                            {
+                                if (p.Id != ((AWAMessage)obj).Data.SenderId)
+                                {
+                                    var w = new BinaryWriter(p.c.GetStream());
+                                    w.Write(ProtocolUtils.Serialize((AWAMessage)obj));
+                                    w.Flush();
+                                }
+                            }
+                            break;
+                        case CommandType.GameAttack:
+                            int hitX = ((AWAGameAttack)obj).Data.XPos;
+                            int hitY = ((AWAGameAttack)obj).Data.YPos;
+                            switch (((AWAGameAttack)obj).Data.Direction)
+                            {
+                                case MoveDirection.Up:
+                                    hitY -= tileSize;
+                                    break;
+                                case MoveDirection.Right:
+                                    hitX += tileSize;
+                                    break;
+                                case MoveDirection.Down:
+                                    hitY += tileSize;
+                                    break;
+                                case MoveDirection.Left:
+                                    hitX -= tileSize;
+                                    break;
+                                default:
+                                    break;
+                            }
 
+                            foreach (Player p in players)
+                            {
+                                var w = new BinaryWriter(p.c.GetStream());
+                                w.Write(ProtocolUtils.Serialize((AWAGameAttack)obj));
+                                w.Flush();
+                                if (p.XPos == hitX && p.YPos == hitY)
+                                {
+                                    p.Health -= ((AWAGameAttack)obj).Data.Damage;
+                                    string attacker = players.SingleOrDefault(o => o.Id == ((AWAGameAttack)obj).Data.Id).Name;
+                                    foreach (Player p2 in players)
+                                    {
+                                        w = new BinaryWriter(p2.c.GetStream());
+                                        w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerHit(p.Id, ((AWAGameAttack)obj).Data.Id, p.Health)));
+                                        w.Flush();
+                                    }
+                                }
+                            }
+
+                            break;
                     }
+
+
                 }
             }
 

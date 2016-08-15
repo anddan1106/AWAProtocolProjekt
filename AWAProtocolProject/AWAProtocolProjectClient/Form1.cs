@@ -44,6 +44,7 @@ namespace AWAProtocolProjectClient
             this.focusObject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Button_KeyDown);
             this.focusObject.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Button_PreviewKeyDown);
             this.focusObject.Location = new System.Drawing.Point(10, 10);
+            this.ActiveControl = ConnectTextBox;
         }
 
 
@@ -71,7 +72,7 @@ namespace AWAProtocolProjectClient
                 UsernameLabel.Text = ((AWARequest)obj).Data.Message;
                 ConnectPanel.Visible = false;
                 UsernamePanel.Show();
-
+                UsernameTextBox.Focus();
             }
             catch (Exception)
             {
@@ -95,7 +96,7 @@ namespace AWAProtocolProjectClient
                 obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
                 if (obj != null)
                 {
-                    if (obj.Command.Type == AWAProtocol.CommandType.Request 
+                    if (obj.Command.Type == AWAProtocol.CommandType.Request
                         && ((AWARequest)obj).Data.RequestFor == RequestType.Username)
                         UsernameLabel.Text = ((AWARequest)obj).Data.Message;
                     else if (obj.Command.Type == AWAProtocol.CommandType.Ok)
@@ -164,15 +165,40 @@ namespace AWAProtocolProjectClient
                             case AWAProtocol.CommandType.PlayerInit:
                                 AWAPlayerInit p = ((AWAPlayerInit)obj);
                                 CreatePlayer(p.Data.MoveType, p.Data.PlayerId, p.Data.Name, p.Data.XPos, p.Data.YPos);
+                                Label playerLable = new Label();
+                                playerLable.Name = p.Data.PlayerId + "healthLabel";
+                                playerLable.Text = p.Data.Name + ":" + Environment.NewLine + $"{10}";
+                                playerLable.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point, ((byte)(0)));
+                                playerLable.Location = new Point(0, 0);
+                                playerLable.Size = new Size(130, 50);
+                                playerLable.TabIndex = 0;
+                                if (this.InvokeRequired)
+                                    Invoke((Action)(() =>
+                                    {
+                                        this.healthPanel.Controls.Add(playerLable);
+                                    }));
+                                //healthPanel.BringToFront();
                                 break;
 
                             case AWAProtocol.CommandType.GameMove:
                                 AWAGameMove move = ((AWAGameMove)obj);
                                 if (move.Data.MoveType == GameMoveType.InitiatePlayer)
                                 {
-                                    Player opponent = new Player(move.Data.PlayerId, move.Data.Name, move.Data.XPos, move.Data.YPos, 3);
-                                    opponents.Add(opponent);
-                                    MovePlayer(opponent, move.Data.XPos, move.Data.YPos, move.Data.Direction, true);
+                                    Player newOpponent = new Player(move.Data.PlayerId, move.Data.Name, move.Data.XPos, move.Data.YPos, 3);
+                                    opponents.Add(newOpponent);
+                                    MovePlayer(newOpponent, move.Data.XPos, move.Data.YPos, move.Data.Direction, true);
+                                    Label opponentLable = new Label();
+                                    opponentLable.Name = newOpponent.Id + "healthLabel";
+                                    opponentLable.Text = newOpponent.Name + ":" + Environment.NewLine + $"{newOpponent.Health}";
+                                    opponentLable.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Underline, GraphicsUnit.Point, ((byte)(0)));
+                                    opponentLable.Location = new Point(0, 50 * healthPanel.Controls.Count);
+                                    opponentLable.Size = new Size(130, 50);
+                                    opponentLable.TabIndex = 0;
+                                    if (this.InvokeRequired)
+                                        Invoke((Action)(() =>
+                                        {
+                                            this.healthPanel.Controls.Add(opponentLable);
+                                        }));
                                 }
                                 else
                                 {
@@ -183,6 +209,35 @@ namespace AWAProtocolProjectClient
                                 }
                                 break;
 
+                            case AWAProtocol.CommandType.GameAttack:
+                                //TODO handle game attack
+                                break;
+                            case AWAProtocol.CommandType.PlayerHit:
+                                AWAPlayerHit hit = (AWAPlayerHit)obj;
+                                Player opponent = opponents.SingleOrDefault(o => o.Id == hit.Data.VictimId);
+                                if (opponent != null)
+                                {
+                                    opponent.Health = hit.Data.NewHealth;
+                                    if (this.InvokeRequired)
+                                        Invoke((Action)(() =>
+                                        {
+                                            healthPanel.Controls
+                         .Find($"{opponent.Id}healthLabel", false).SingleOrDefault()
+                         .Text = opponent.Name + ":" + Environment.NewLine + $"{opponent.Health}";
+                                        }));
+                                }
+                                else if (player.Id == hit.Data.VictimId)
+                                {
+                                    player.Health = hit.Data.NewHealth;
+                                    if (this.InvokeRequired)
+                                        Invoke((Action)(() =>
+                                        {
+                                            healthPanel.Controls
+                         .Find($"{player.Id}healthLabel", false).SingleOrDefault()
+                         .Text = player.Name + ":" + Environment.NewLine + $"{player.Health}";
+                                        }));
+                                }
+                                break;
                             default:
                                 break;
                         }
@@ -355,6 +410,10 @@ namespace AWAProtocolProjectClient
                     if (player.XPos < 0)
                         player.XPos = 0;
                     break;
+                case Keys.Space:
+                    //TODO skulle kunna intergrera med gamemove.
+                    sendObject(ProtocolUtils.CreateGameAttack(player.Id, player.CurrentDirection, player.attackDamage, player.XPos, player.YPos));
+                    return;
                 default:
                     return;
             }
@@ -409,6 +468,16 @@ namespace AWAProtocolProjectClient
                 sendMessage();
         }
 
-    
+        private void ConnectTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                ConnectButton_Click(null, null);
+        }
+
+        private void UsernameTextBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                UsernameButton_Click(null, null);
+        }
     }
 }

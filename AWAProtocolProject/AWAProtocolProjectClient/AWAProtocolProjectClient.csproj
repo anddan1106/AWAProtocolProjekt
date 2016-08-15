@@ -110,6 +110,30 @@
     <None Include="Resources\mobile_game_background_by_disnie-d4jmrye.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\Images\2\2Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\2\2Left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\2\2Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\2\2Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\3\3Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\3\3Left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\3\3Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\3\3Up.png" />
+  </ItemGroup>
+  <ItemGroup>
     <COMReference Include="AxWMPLib">
       <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
       <VersionMajor>1</VersionMajor>

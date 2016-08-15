@@ -42,6 +42,7 @@
             this.UsernameTextBox = new System.Windows.Forms.TextBox();
             this.GameFieldPanel = new System.Windows.Forms.Panel();
             this.GameFieldLabel = new System.Windows.Forms.Label();
+            this.healthPanel = new System.Windows.Forms.Panel();
             this.ConnectPanel.SuspendLayout();
             this.MessagePanel.SuspendLayout();
             this.UsernamePanel.SuspendLayout();
@@ -66,6 +67,7 @@
             this.ConnectTextBox.Name = "ConnectTextBox";
             this.ConnectTextBox.Size = new System.Drawing.Size(250, 29);
             this.ConnectTextBox.TabIndex = 1;
+            this.ConnectTextBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.ConnectTextBox_PreviewKeyDown);
             // 
             // ConnectLabel
             // 
@@ -96,7 +98,7 @@
             this.MessagePanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.MessagePanel.Location = new System.Drawing.Point(0, 658);
             this.MessagePanel.Name = "MessagePanel";
-            this.MessagePanel.Size = new System.Drawing.Size(715, 185);
+            this.MessagePanel.Size = new System.Drawing.Size(816, 185);
             this.MessagePanel.TabIndex = 12;
             // 
             // messageBox
@@ -168,6 +170,7 @@
             this.UsernameTextBox.Name = "UsernameTextBox";
             this.UsernameTextBox.Size = new System.Drawing.Size(250, 29);
             this.UsernameTextBox.TabIndex = 1;
+            this.UsernameTextBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.UsernameTextBox_PreviewKeyDown);
             // 
             // GameFieldPanel
             // 
@@ -191,17 +194,26 @@
             this.GameFieldLabel.TabIndex = 0;
             this.GameFieldLabel.Text = "GameFieldLabel";
             // 
+            // healthPanel
+            // 
+            this.healthPanel.Location = new System.Drawing.Point(670, 10);
+            this.healthPanel.Name = "healthPanel";
+            this.healthPanel.Size = new System.Drawing.Size(130, 640);
+            this.healthPanel.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(715, 843);
+            this.ClientSize = new System.Drawing.Size(816, 843);
+            this.Controls.Add(this.healthPanel);
             this.Controls.Add(this.ConnectPanel);
             this.Controls.Add(this.UsernamePanel);
             this.Controls.Add(this.MessagePanel);
             this.Controls.Add(this.GameFieldPanel);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Button_PreviewKeyDown);
             this.ConnectPanel.ResumeLayout(false);
             this.ConnectPanel.PerformLayout();
@@ -231,6 +243,7 @@
         private System.Windows.Forms.TextBox UsernameTextBox;
         private System.Windows.Forms.Panel GameFieldPanel;
         private System.Windows.Forms.Label GameFieldLabel;
+        private System.Windows.Forms.Panel healthPanel;
     }
 }
 
