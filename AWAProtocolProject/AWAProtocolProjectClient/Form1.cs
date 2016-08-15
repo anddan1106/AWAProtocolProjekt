@@ -15,12 +15,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
 
+
 namespace AWAProtocolProjectClient
 {
     public partial class Form1 : Form
     {
         WMPLib.WindowsMediaPlayer soundPlayer = new WMPLib.WindowsMediaPlayer();
-       // System.Media.SoundPlayer sound = new System.Media.SoundPlayer ();
+        
+ 
         private TcpClient server;
 
         private string serverIP = "?";
@@ -32,8 +34,8 @@ namespace AWAProtocolProjectClient
         public Form1()
         {
             InitializeComponent();
-            soundPlayer.URL = "MySound.wav";
-            // sound.SoundLocation = "MySound.wav";
+            soundPlayer.URL = @"C:\Users\Administrator\Source\Repos\AWAProtocolProjekt\AWAProtocolProject\AWAProtocolProjectClient\bin\Debug\MySound.mp3.mp3";
+     
             soundPlayer.controls.play();
             ConnectTextBox.Text = GetLocalIP();
 
