@@ -54,6 +54,8 @@
     <Compile Include="AWAOk.cs" />
     <Compile Include="AWAOkData.cs" />
     <Compile Include="AWAPlayerInit.cs" />
+    <Compile Include="AWAPlayerRemove.cs" />
+    <Compile Include="AWAPlayerRemoveData.cs" />
     <Compile Include="AWARequest.cs" />
     <Compile Include="AWARequestData.cs" />
     <Compile Include="AWAResponse.cs" />

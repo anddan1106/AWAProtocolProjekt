@@ -49,10 +49,10 @@ namespace AWAProtocolProjectServer
                 }
                 Log.WriteLine("två spelare anslutna");
 
-                foreach (Player player in players)
-                {
+                //foreach (Player player in players)
+                //{
 
-                }
+                //}
 
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace AWAProtocolProjectServer
             try
             {
                 w = new BinaryWriter(c.GetStream());
-                AWARequest request = ProtocolUtils.CreateRequest("1", RequestType.Username, "Choose your name."); 
+                AWARequest request = ProtocolUtils.CreateRequest("1", RequestType.Username, "Choose your name.");
 
                 bool AskForUsername = true;
                 do
@@ -195,15 +195,18 @@ namespace AWAProtocolProjectServer
 
         }
 
-        public void RemovePlayer(Player player)
+        public void RemovePlayer(int id)
         {
-            players.Remove(player);
+            players.RemoveAll(p => p.Id == id);
+            foreach (Player p in players)
+            {
+                var w = new BinaryWriter(p.c.GetStream());
+                w.Write(ProtocolUtils.Serialize(ProtocolUtils.CreatePlayerRemove(id)));
+                w.Flush();
+            }
 
-            if (players.Count() > 0)
-            { }
+            IsAlive = false;
             //TODO send message to other players
-            else
-                IsAlive = false;
         }
 
         public void Init()

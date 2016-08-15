@@ -67,8 +67,8 @@ namespace AWAProtocolProjectClient
             }
             catch (Exception)
             {
+                showMessage("Connection was not estabished.. is the server IP correct?");
                 //TODO add error message and possibliy try again
-                throw;
             }
 
             //Thread senderThread = new Thread(Send);
@@ -87,7 +87,8 @@ namespace AWAProtocolProjectClient
                 obj = ProtocolUtils.Deserialize(new BinaryReader(n).ReadString());
                 if (obj != null)
                 {
-                    if (obj.Command.Type == AWAProtocol.CommandType.Request && ((AWARequest)obj).Data.RequestFor == RequestType.Username)
+                    if (obj.Command.Type == AWAProtocol.CommandType.Request 
+                        && ((AWARequest)obj).Data.RequestFor == RequestType.Username)
                         UsernameLabel.Text = ((AWARequest)obj).Data.Message;
                     else if (obj.Command.Type == AWAProtocol.CommandType.Ok)
                     {
@@ -102,13 +103,15 @@ namespace AWAProtocolProjectClient
             }
             catch (Exception ex)
             {
-
+                showMessage("something went wrong, looks like the server is down :(");
             }
         }
+
         private void messageButton_Click(object sender, EventArgs e)
         {
             sendMessage();
         }
+
         private void sendMessage()
         {
             sendObject(ProtocolUtils.CreateMessage($"[{player.Name}]: {messageText.Text}", player.Id));
@@ -169,20 +172,18 @@ namespace AWAProtocolProjectClient
                                         MovePlayer(player, move.Data.XPos, move.Data.YPos, move.Data.Direction);
                                     else
                                         MovePlayer(opponents.Find(o => o.Id == move.Data.PlayerId), move.Data.XPos, move.Data.YPos, move.Data.Direction);
-                                    //showMessage("opponent : " + opponents.Find(o => o.Id == move.Data.PlayerId).Id.ToString());
                                 }
                                 break;
 
                             default:
                                 break;
                         }
-
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                showMessage("something went wrong, looks like the server is down :(");
             }
         }
 
@@ -273,14 +274,25 @@ namespace AWAProtocolProjectClient
             }
         }
 
-
+        // skriver ut ett meddelande i messageBox, om funktionen anropas av en obehörig tråd skickas en delegat till ägandetråden
         private void showMessage(string str)
         {
             if (this.InvokeRequired)
-                Invoke((Action)(() => { messageBox.Items.Add(str); }));
+                Invoke((Action)(() =>
+                {
+                    messageBox.Items.Add(str);
+                    messageBox.TopIndex = messageBox.Items.Count - 1;
+                }));
             else
+            {
                 messageBox.Items.Add(str);
+                messageBox.TopIndex = messageBox.Items.Count - 1;
+            }
+
+
         }
+
+        // används för att skicka meddelande enligt protokollet till servern
         private void sendObject(AWABase obj)
         {
             NetworkStream n = server.GetStream();
@@ -288,6 +300,7 @@ namespace AWAProtocolProjectClient
             w.Write(ProtocolUtils.Serialize(obj));
             w.Flush();
         }
+
         private string GetLocalIP()
         {
             IPHostEntry host;
@@ -302,6 +315,7 @@ namespace AWAProtocolProjectClient
             return "";
         }
 
+        // hantering av piltangenterna för förflyttning
         private void Button_KeyDown(object sender, KeyEventArgs e)
         {
             MoveDirection direction;
@@ -338,6 +352,7 @@ namespace AWAProtocolProjectClient
 
         }
 
+        // Fånga upp piltangenter för att undvika att focus flyttas 
         private void Button_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             switch (e.KeyCode)
@@ -348,91 +363,41 @@ namespace AWAProtocolProjectClient
                 case Keys.Left:
                     e.IsInputKey = true;
                     break;
-                default:
-                    return;
             }
 
         }
 
-        private void messageButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            showMessage("presses key");
-        }
+        //private void messageButton_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    showMessage("presses key");
+        //}
 
-        private void messageButton_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Down:
-                case Keys.Right:
-                case Keys.Up:
-                case Keys.Left:
-                    e.IsInputKey = true;
-                    break;
-            }
-        }
+        // Fånga upp piltangenter för att undvika att focus ändras 
+        //private void messageButton_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        //{
+        //    switch (e.KeyCode)
+        //    {
+        //        case Keys.Down:
+        //        case Keys.Right:
+        //        case Keys.Up:
+        //        case Keys.Left:
+        //            e.IsInputKey = true;
+        //            break;
+        //    }
+        //}
 
+        // Ändra fokus till focusObject när man klickar på GameFieldPanel
         private void GameFieldPanel_Click(object sender, EventArgs e)
         {
             this.ActiveControl = focusObject;
         }
 
+        // Hantera enter tangenten som skicka-knapp
         private void messageText_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 sendMessage();
         }
 
-
-        //void Form1_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    base.OnKeyDown(e);
-        //    switch (e.KeyCode)
-        //    {
-        //        case Keys.Left:
-        //            break;
-        //        case Keys.Right:
-        //            break;
-        //        case Keys.Up:
-        //            break;
-        //        case Keys.Down:
-        //            break;
-        //    }
-        //    showMessage("KeydOWN");
-        //}
-        //private void Form1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        //{
-        //    switch (e.KeyCode)
-        //    {
-        //        case Keys.Left:
-        //        case Keys.Right:
-        //        case Keys.Up:
-        //        case Keys.Down:
-        //            e.IsInputKey = true;
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-        //    showMessage("PreviewKeyDown");
-
-        //}
-        //protected override bool IsInputKey(Keys keyData)
-        //{
-        //    switch (keyData)
-        //    {
-        //        case Keys.Right:
-        //        case Keys.Left:
-        //        case Keys.Up:
-        //        case Keys.Down:
-        //            return true;
-        //        case Keys.Shift | Keys.Right:
-        //        case Keys.Shift | Keys.Left:
-        //        case Keys.Shift | Keys.Up:
-        //        case Keys.Shift | Keys.Down:
-        //            return true;
-        //    }
-        //    return base.IsInputKey(keyData);
-        //}
     }
 }

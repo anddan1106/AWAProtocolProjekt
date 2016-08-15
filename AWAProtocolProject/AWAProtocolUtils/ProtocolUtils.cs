@@ -110,6 +110,10 @@ namespace AWAProtocolUtils
         {
             return new AWAPlayerInit(version, GameMoveType.InitiatePlayer, playerId, name, xPos, yPos, direction);
         }
+        public static AWAPlayerRemove CreatePlayerRemove(int id, string version = "1.0")
+        {
+            return new AWAPlayerRemove(version, id);
+        }
         public static AWAGameInit CreateGameInit(int height, int width, string version = "1.0")
         {
             return new AWAGameInit(version, height, width);

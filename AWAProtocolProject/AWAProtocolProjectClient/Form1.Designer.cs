@@ -119,8 +119,8 @@
             this.messageButton.Text = "Send";
             this.messageButton.UseVisualStyleBackColor = true;
             this.messageButton.Click += new System.EventHandler(this.messageButton_Click);
-            this.messageButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messageButton_KeyDown);
-            this.messageButton.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.messageButton_PreviewKeyDown);
+//            this.messageButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.messageButton_KeyDown);
+            this.messageButton.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Button_PreviewKeyDown);
             // 
             // messageText
             // 
