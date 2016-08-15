@@ -21,8 +21,7 @@ namespace AWAProtocolProjectClient
     public partial class Form1 : Form
     {
         WMPLib.WindowsMediaPlayer soundPlayer = new WMPLib.WindowsMediaPlayer();
-        
- 
+       // System.Media.SoundPlayer sound = new System.Media.SoundPlayer ();
         private TcpClient server;
 
         private string serverIP = "?";
