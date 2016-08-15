@@ -191,7 +191,6 @@ namespace AWAProtocolProjectClient
         {
             GameFieldPanel.Visible = true;
             ActiveControl = focusObject;
-
             Thread listenerThread = new Thread(Listen);
             listenerThread.Start();
 
@@ -401,5 +400,9 @@ namespace AWAProtocolProjectClient
                 sendMessage();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
