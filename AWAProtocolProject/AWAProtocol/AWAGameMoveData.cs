@@ -13,11 +13,13 @@ namespace AWAProtocol
         public int PlayerId { get; set; }
         public GameMoveType MoveType { get; set; }
         public MoveDirection Direction { get; set; }
-        public AWAGameMoveData(GameMoveType moveType, int playerId, int xPos, int yPos, MoveDirection direction)
+        public string Name { get; set; }
+        public AWAGameMoveData(GameMoveType moveType, int playerId, string name, int xPos, int yPos, MoveDirection direction)
         {
             Direction = direction;
             MoveType = moveType;
             PlayerId = playerId;
+            Name = name;
             XPos = xPos;
             YPos = yPos;
         }

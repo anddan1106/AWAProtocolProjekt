@@ -9,11 +9,11 @@ namespace AWAProtocol
     public class AWAMessage : AWABase
     {
         public new AWAMessageData Data { get; set; }
-        public AWAMessage(string version, string message)
+        public AWAMessage(string version, string message, int senderId)
         {
             Version = version;
             Command = new AWACommand(CommandType.Message);
-            Data = new AWAMessageData(message);
+            Data = new AWAMessageData(message, senderId);
         }
     }
 }

@@ -12,7 +12,6 @@ namespace AWAProtocol
         public string Message { get; set; }
         public AWAErrorData(int code)
         {
-
             Code = code;
             switch (code)
             {
