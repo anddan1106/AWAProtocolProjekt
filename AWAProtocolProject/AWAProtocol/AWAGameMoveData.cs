@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AWAProtocol
 {
-    public class AWAGameMoveData
+    public class AWAGameMoveData : AWAData
     {
         public int XPos { get; set; }
         public int YPos { get; set; }

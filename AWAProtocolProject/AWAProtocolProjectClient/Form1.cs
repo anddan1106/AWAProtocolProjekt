@@ -33,7 +33,7 @@ namespace AWAProtocolProjectClient
         public Form1()
         {
             InitializeComponent();
-            soundPlayer.URL = @"C:\Users\Administrator\Source\Repos\AWAProtocolProjekt\AWAProtocolProject\AWAProtocolProjectClient\bin\Debug\MySound.mp3.mp3";
+            soundPlayer.URL = @"Resources\MySound.mp3.mp3";
      
             soundPlayer.controls.play();
             ConnectTextBox.Text = GetLocalIP();

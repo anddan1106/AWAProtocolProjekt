@@ -1,6 +1,6 @@
 ﻿namespace AWAProtocol
 {
-    public class AWAResponseData
+    public class AWAResponseData : AWAData
     {
 
         public string Id { get; set; }

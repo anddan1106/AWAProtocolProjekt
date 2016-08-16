@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AWAProtocol
 {
-    public class AWAErrorData
+    public class AWAErrorData : AWAData
     {
         public int Code { get; set; }
         public string Message { get; set; }

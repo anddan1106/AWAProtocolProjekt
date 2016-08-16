@@ -1,6 +1,6 @@
 ﻿namespace AWAProtocol
 {
-    public class AWAGameAttackData
+    public class AWAGameAttackData : AWAData
     {
         public int Id { get; set; }
         public MoveDirection Direction { get; set; }

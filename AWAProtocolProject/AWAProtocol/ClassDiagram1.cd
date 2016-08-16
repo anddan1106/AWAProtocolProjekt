@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AWAProtocol.AWABase" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAABAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWABase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWACommand" Collapsed="true">
+    <Position X="7.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>AWACommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAData" Collapsed="true">
+    <Position X="12.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAError" Collapsed="true">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAError.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAErrorData" Collapsed="true">
+    <Position X="16" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>AWAErrorData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAGameAttack" Collapsed="true">
+    <Position X="19.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAGameAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAGameAttackData" Collapsed="true">
+    <Position X="18.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAAAAAAACAAAAAAgAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>AWAGameAttackData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAGameInit" Collapsed="true">
+    <Position X="9.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAGameInit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAGameInitData" Collapsed="true">
+    <Position X="8.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAGameInitData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAGameMove" Collapsed="true">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAGameMove.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAGameMoveData" Collapsed="true">
+    <Position X="9.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAQAgAAAAAABAAAIABAAAAA=</HashCode>
+      <FileName>AWAGameMoveData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAGameOver" Collapsed="true">
+    <Position X="16.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAGameOver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAGameOverData" Collapsed="true">
+    <Position X="11.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAGameOverData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAMessage" Collapsed="true">
+    <Position X="11.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAMessageData" Collapsed="true">
+    <Position X="10.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>AWAMessageData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAOk" Collapsed="true">
+    <Position X="15" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAOk.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAOkData" Collapsed="true">
+    <Position X="12.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>AWAOkData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAPlayerHit" Collapsed="true">
+    <Position X="18.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAPlayerHit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAPlayerHitData" Collapsed="true">
+    <Position X="15" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAIAAAAAAA=</HashCode>
+      <FileName>AWAPlayerHitData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAPlayerInit" Collapsed="true">
+    <Position X="14" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAPlayerInit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWARequest" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWARequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWARequestData" Collapsed="true">
+    <Position X="13.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>AWARequestData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAResponse" Collapsed="true">
+    <Position X="17.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWAResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AWAProtocol.AWAResponseData" Collapsed="true">
+    <Position X="17.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>AWAResponseData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="AWAProtocol.RequestType">
+    <Position X="12.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWABase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AWAProtocol.ResponseType">
+    <Position X="14.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AWABase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AWAProtocol.CommandType">
+    <Position X="16" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAgAAAAABAAQAIAAAAAAAAAAAAgAgAAAARIAAIAAA=</HashCode>
+      <FileName>AWABase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AWAProtocol.GameMoveType">
+    <Position X="17.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>AWABase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AWAProtocol.MoveDirection">
+    <Position X="19.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>AWABase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

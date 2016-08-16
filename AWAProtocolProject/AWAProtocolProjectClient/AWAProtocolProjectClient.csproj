@@ -92,46 +92,50 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\1\down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\1\left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\1\right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\1\up.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\spelplan.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\mobile_game_background_by_disnie-d4jmrye.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Images\2\2Down.png" />
+    <None Include="Images\2\2Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Images\2\2Left.png" />
+    <Content Include="Images\2\2Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Images\2\2Right.png" />
+    <None Include="Images\2\2Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Images\2\2Up.png" />
+    <None Include="Images\2\2Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Images\3\3Down.png" />
+    <None Include="Images\3\3Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Images\3\3Left.png" />
+    <None Include="Images\3\3Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Images\3\3Right.png" />
+    <None Include="Images\3\3Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Images\3\3Up.png" />
+    <None Include="Images\3\3Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AxWMPLib">
@@ -153,10 +157,12 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MySound.mp3.bmp" />
+    <None Include="Resources\MySound.mp3.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\MySound.mp3.mp3" />
+    <Folder Include="bin\Debug\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

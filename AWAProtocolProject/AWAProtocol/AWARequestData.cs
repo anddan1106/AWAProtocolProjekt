@@ -3,7 +3,7 @@ using static AWAProtocol.AWABase;
 
 namespace AWAProtocol
 {
-    public class AWARequestData
+    public class AWARequestData : AWAData
     {
 
         public RequestType RequestFor { get; set; }

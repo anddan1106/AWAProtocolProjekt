@@ -19,11 +19,11 @@ namespace AWAProtocolProjectServer
         public Tile[][] GameField { get; set; }
         public int Height { get; set; } = 12;
         public int Width { get; set; } = 12;
-        public bool IsAlive { get; private set; }
+        public bool GameOn { get; private set; }
 
         public void Run()
         {
-            IsAlive = true;
+            GameOn = true;
             Init();
             WaitForPlayers();
 
@@ -40,7 +40,7 @@ namespace AWAProtocolProjectServer
             {
                 listener.Start();
 
-                while (players.Count() < 2)
+                while (players.Count() < 5)
                 {
                     TcpClient c = listener.AcceptTcpClient();
 
@@ -48,12 +48,6 @@ namespace AWAProtocolProjectServer
                     clientThread.Start(c);
 
                 }
-                Log.WriteLine("två spelare anslutna");
-
-                //foreach (Player player in players)
-                //{
-
-                //}
 
             }
             catch (Exception ex)
@@ -86,7 +80,7 @@ namespace AWAProtocolProjectServer
                 {
                     w.Write(ProtocolUtils.Serialize(request));
                     w.Flush();
-                    Log.WriteLine("server sending request");
+                    Log.WriteLine("server sending request for username");
 
                     var obj = ProtocolUtils.Deserialize(new BinaryReader(c.GetStream()).ReadString());
 
@@ -247,6 +241,10 @@ namespace AWAProtocolProjectServer
 
         public void RemovePlayer(int id)
         {
+            Player deadPlayer = players.SingleOrDefault(dp => dp.Id == id);
+            if(deadPlayer != null)
+            {
+                deadPlayer.IsAlive = false;
             foreach (Player p in players)
             {
                 var w = new BinaryWriter(p.c.GetStream());
@@ -255,7 +253,8 @@ namespace AWAProtocolProjectServer
             }
             players.RemoveAll(p => p.Id == id);
             if (players.Count <= 0)
-                IsAlive = false;
+                GameOn = false;
+            }
         }
 
         public void Init()
